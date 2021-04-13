@@ -11,7 +11,7 @@ const isComposite = value => {
   if (typeof value === "function") return true;
   return false;
 };
-const isPrimitive = value => !isComposite(value);
+const isPrimitive$1 = value => !isComposite(value);
 
 /* eslint-disable no-use-before-define */
 // https://github.com/dmail/dom/blob/e55a8c7b4cda6be2f7a4b1222f96d028a379b67f/src/visit.js#L89
@@ -210,7 +210,7 @@ const defaultComparer = (comparison, options) => {
     return !comparison.failed;
   }
 
-  if (isPrimitive(expected) || isPrimitive(actual)) {
+  if (isPrimitive$1(expected) || isPrimitive$1(actual)) {
     compareIdentity(comparison, options);
     return !comparison.failed;
   }
@@ -943,11 +943,11 @@ const valueToCompositeWellKnownPath = value => {
   return compositeWellKnownMap.get(value);
 };
 
-const isPrimitive$1 = value => !isComposite(value);
+const isPrimitive = value => !isComposite(value);
 
 const addWellKnownComposite = (value, name) => {
   const visitValue = (value, path) => {
-    if (isPrimitive$1(value)) {
+    if (isPrimitive(value)) {
       primitiveWellKnownMap.set(value, path);
       return;
     }
@@ -1304,21 +1304,21 @@ const symbolsComparisonToErrorMessage = comparison => {
   if (hasExtra && !hasMissing) {
     return createUnexpectedSymbolsMessage({
       path,
-      unexpectedSymbols: symbolArrayToString(extra)
+      unexpectedSymbols: symbolArrayToString$1(extra)
     });
   }
 
   if (!hasExtra && hasMissing) {
     return createMissingSymbolsMessage({
       path,
-      missingSymbols: symbolArrayToString(missing)
+      missingSymbols: symbolArrayToString$1(missing)
     });
   }
 
   return createUnexpectedAndMissingSymbolsMessage({
     path,
-    unexpectedSymbols: symbolArrayToString(extra),
-    missingSymbols: symbolArrayToString(missing)
+    unexpectedSymbols: symbolArrayToString$1(extra),
+    missingSymbols: symbolArrayToString$1(missing)
   });
 };
 
@@ -1356,7 +1356,7 @@ ${missingSymbols.join(`
 --- at ---
 ${path}`;
 
-const symbolArrayToString = symbolArray => {
+const symbolArrayToString$1 = symbolArray => {
   return symbolArray.map(symbol => inspect.inspect(symbol));
 };
 
@@ -1367,8 +1367,8 @@ const symbolsOrderComparisonToErrorMessage = comparison => {
   const actual = comparison.actual;
   return createUnexpectedSymbolsOrderMessage({
     path,
-    expectedSymbolsOrder: symbolArrayToString$1(expected),
-    actualSymbolsOrder: symbolArrayToString$1(actual)
+    expectedSymbolsOrder: symbolArrayToString(expected),
+    actualSymbolsOrder: symbolArrayToString(actual)
   });
 };
 
@@ -1386,7 +1386,7 @@ ${expectedSymbolsOrder.join(`
 --- at ---
 ${path}`;
 
-const symbolArrayToString$1 = symbolArray => {
+const symbolArrayToString = symbolArray => {
   return symbolArray.map(symbol => inspect.inspect(symbol));
 };
 

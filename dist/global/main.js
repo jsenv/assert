@@ -198,7 +198,7 @@ var __jsenv_assert__ = (function (exports) {
     if (typeof value === "function") return true;
     return false;
   };
-  var isPrimitive = function isPrimitive(value) {
+  var isPrimitive$1 = function isPrimitive(value) {
     return !isComposite(value);
   };
 
@@ -354,12 +354,12 @@ var __jsenv_assert__ = (function (exports) {
       comparer: function comparer(_ref4) {
         var actual = _ref4.actual;
 
-        if (isNegativeZero(value)) {
-          return !isNegativeZero(actual);
+        if (isNegativeZero$1(value)) {
+          return !isNegativeZero$1(actual);
         }
 
-        if (isNegativeZero(actual)) {
-          return !isNegativeZero(value);
+        if (isNegativeZero$1(actual)) {
+          return !isNegativeZero$1(value);
         }
 
         return actual !== value;
@@ -407,7 +407,7 @@ var __jsenv_assert__ = (function (exports) {
       return !comparison.failed;
     }
 
-    if (isPrimitive(expected) || isPrimitive(actual)) {
+    if (isPrimitive$1(expected) || isPrimitive$1(actual)) {
       compareIdentity(comparison, options);
       return !comparison.failed;
     }
@@ -543,12 +543,12 @@ var __jsenv_assert__ = (function (exports) {
       actual: actual,
       expected: expected,
       comparer: function comparer() {
-        if (isNegativeZero(expected)) {
-          return isNegativeZero(actual);
+        if (isNegativeZero$1(expected)) {
+          return isNegativeZero$1(actual);
         }
 
-        if (isNegativeZero(actual)) {
-          return isNegativeZero(expected);
+        if (isNegativeZero$1(actual)) {
+          return isNegativeZero$1(expected);
         }
 
         return actual === expected;
@@ -564,7 +564,7 @@ var __jsenv_assert__ = (function (exports) {
   // All this to say avoid relying on Object.is to test if the value is -0
 
 
-  var isNegativeZero = function isNegativeZero(value) {
+  var isNegativeZero$1 = function isNegativeZero(value) {
     return typeof value === "number" && 1 / value === -Infinity;
   };
 
@@ -1116,14 +1116,191 @@ var __jsenv_assert__ = (function (exports) {
     return "null";
   };
 
-  var inspectNumber = function inspectNumber(value) {
-    return isNegativeZero$1(value) ? "-0" : value.toString();
+  // eslint-disable-next-line consistent-return
+  var arrayWithHoles = (function (arr) {
+    if (Array.isArray(arr)) return arr;
+  });
+
+  var iterableToArrayLimit = (function (arr, i) {
+    // this is an expanded form of \`for...of\` that properly supports abrupt completions of
+    // iterators etc. variable names have been minimised to reduce the size of this massive
+    // helper. sometimes spec compliance is annoying :(
+    //
+    // _n = _iteratorNormalCompletion
+    // _d = _didIteratorError
+    // _e = _iteratorError
+    // _i = _iterator
+    // _s = _step
+    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+
+    var _e;
+
+    var _i = arr[Symbol.iterator]();
+
+    var _s;
+
+    try {
+      for (; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i.return !== null) _i.return();
+      } finally {
+        if (_d) throw _e;
+      }
+    } // eslint-disable-next-line consistent-return
+
+
+    return _arr;
+  });
+
+  var nonIterableRest = (function () {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  });
+
+  var _slicedToArray = (function (arr, i) {
+    return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+  });
+
+  // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/rules/numeric-separators-style.js
+  var inspectNumber = function inspectNumber(value, _ref) {
+    var numericSeparator = _ref.numericSeparator;
+
+    if (isNegativeZero(value)) {
+      return "-0";
+    } // isNaN
+    // eslint-disable-next-line no-self-compare
+
+
+    if (value !== value) {
+      return "NaN";
+    }
+
+    if (value === Infinity) {
+      return "Infinity";
+    }
+
+    if (value === -Infinity) {
+      return "-Infinity";
+    }
+
+    var numberString = String(value);
+
+    if (!numericSeparator) {
+      return numberString;
+    }
+
+    var _numberString$match$g = numberString.match(/^(?<number>.*?)(?:(?<mark>e)(?<sign>[+-])?(?<power>\d+))?$/i).groups,
+        number = _numberString$match$g.number,
+        _numberString$match$g2 = _numberString$match$g.mark,
+        mark = _numberString$match$g2 === void 0 ? "" : _numberString$match$g2,
+        _numberString$match$g3 = _numberString$match$g.sign,
+        sign = _numberString$match$g3 === void 0 ? "" : _numberString$match$g3,
+        _numberString$match$g4 = _numberString$match$g.power,
+        power = _numberString$match$g4 === void 0 ? "" : _numberString$match$g4;
+    var numberWithSeparators = formatNumber(number);
+    var powerWithSeparators = addSeparator(power, {
+      minimumDigits: 5,
+      groupLength: 3
+    });
+    return "".concat(numberWithSeparators).concat(mark).concat(sign).concat(powerWithSeparators);
   }; // Use this and instead of Object.is(value, -0)
   // because in some corner cases firefox returns false
   // for Object.is(-0, -0)
 
-  var isNegativeZero$1 = function isNegativeZero(value) {
+  var isNegativeZero = function isNegativeZero(value) {
     return value === 0 && 1 / value === -Infinity;
+  };
+
+  var formatNumber = function formatNumber(numberString) {
+    var parts = numberString.split(".");
+
+    var _parts = _slicedToArray(parts, 2),
+        integer = _parts[0],
+        fractional = _parts[1];
+
+    if (parts.length === 2) {
+      var integerWithSeparators = addSeparator(integer, {
+        minimumDigits: 5,
+        groupLength: 3
+      });
+      var fractionalWithSeparators = addSeparatorFromLeft(fractional, {
+        minimumDigits: 5,
+        groupLength: 3
+      });
+      return "".concat(integerWithSeparators, ".").concat(fractionalWithSeparators);
+    }
+
+    return addSeparator(integer, {
+      minimumDigits: 5,
+      groupLength: 3
+    });
+  };
+
+  var addSeparator = function addSeparator(numberString, _ref2) {
+    var minimumDigits = _ref2.minimumDigits,
+        groupLength = _ref2.groupLength;
+
+    if (numberString[0] === "-") {
+      return "-".concat(groupDigits(numberString.slice(1), {
+        minimumDigits: minimumDigits,
+        groupLength: groupLength
+      }));
+    }
+
+    return groupDigits(numberString, {
+      minimumDigits: minimumDigits,
+      groupLength: groupLength
+    });
+  };
+
+  var groupDigits = function groupDigits(digits, _ref3) {
+    var minimumDigits = _ref3.minimumDigits,
+        groupLength = _ref3.groupLength;
+    var digitCount = digits.length;
+
+    if (digitCount < minimumDigits) {
+      return digits;
+    }
+
+    var digitsWithSeparator = digits.slice(-groupLength);
+    var remainingDigits = digits.slice(0, -groupLength);
+
+    while (remainingDigits.length) {
+      var group = remainingDigits.slice(-groupLength);
+      remainingDigits = remainingDigits.slice(0, -groupLength);
+      digitsWithSeparator = "".concat(group, "_").concat(digitsWithSeparator);
+    }
+
+    return digitsWithSeparator;
+  };
+
+  var addSeparatorFromLeft = function addSeparatorFromLeft(value, _ref4) {
+    var minimumDigits = _ref4.minimumDigits,
+        groupLength = _ref4.groupLength;
+    var length = value.length;
+
+    if (length < minimumDigits) {
+      return value;
+    }
+
+    var parts = [];
+
+    for (var start = 0; start < length; start += groupLength) {
+      var end = Math.min(start + groupLength, length);
+      parts.push(value.slice(start, end));
+    }
+
+    return parts.join("_");
   };
 
   // https://github.com/joliss/js-string-escape/blob/master/index.js
@@ -1218,13 +1395,13 @@ var __jsenv_assert__ = (function (exports) {
   var inspectSymbol = function inspectSymbol(value, _ref) {
     var nestedInspect = _ref.nestedInspect,
         parenthesis = _ref.parenthesis;
-    var symbolDescription = symbolToDescription(value);
+    var symbolDescription = symbolToDescription$1(value);
     var symbolDescriptionSource = symbolDescription ? nestedInspect(symbolDescription) : "";
     var symbolSource = "Symbol(".concat(symbolDescriptionSource, ")");
     if (parenthesis) return "".concat(symbolSource);
     return symbolSource;
   };
-  var symbolToDescription = "description" in Symbol.prototype ? function (symbol) {
+  var symbolToDescription$1 = "description" in Symbol.prototype ? function (symbol) {
     return symbol.description;
   } : function (symbol) {
     var toStringResult = symbol.toString();
@@ -1370,7 +1547,9 @@ var __jsenv_assert__ = (function (exports) {
     var nestedInspect = _ref.nestedInspect,
         useNew = _ref.useNew,
         parenthesis = _ref.parenthesis;
-    var dateSource = nestedInspect(value.valueOf());
+    var dateSource = nestedInspect(value.valueOf(), {
+      numericSeparator: false
+    });
     return inspectConstructor("Date(".concat(dateSource, ")"), {
       useNew: useNew,
       parenthesis: parenthesis
@@ -1522,7 +1701,9 @@ var __jsenv_assert__ = (function (exports) {
         _ref$indentUsingTab = _ref.indentUsingTab,
         indentUsingTab = _ref$indentUsingTab === void 0 ? false : _ref$indentUsingTab,
         _ref$indentSize = _ref.indentSize,
-        indentSize = _ref$indentSize === void 0 ? 2 : _ref$indentSize;
+        indentSize = _ref$indentSize === void 0 ? 2 : _ref$indentSize,
+        _ref$numericSeparator = _ref.numericSeparator,
+        numericSeparator = _ref$numericSeparator === void 0 ? true : _ref$numericSeparator;
 
     var scopedInspect = function scopedInspect(scopedValue, scopedOptions) {
       var _valueToType = valueToType(scopedValue),
@@ -1559,6 +1740,7 @@ var __jsenv_assert__ = (function (exports) {
       showFunctionBody: showFunctionBody,
       indentUsingTab: indentUsingTab,
       indentSize: indentSize,
+      numericSeparator: numericSeparator,
       depth: 0
     });
   };
@@ -1572,7 +1754,7 @@ var __jsenv_assert__ = (function (exports) {
       return "Symbol".concat(propertyToAccessorString(wellKnownSymbolName));
     }
 
-    var description = symbolToDescription$1(symbol);
+    var description = symbolToDescription(symbol);
 
     if (description) {
       var key = Symbol.keyFor(symbol);
@@ -1587,7 +1769,7 @@ var __jsenv_assert__ = (function (exports) {
     return "Symbol()";
   };
 
-  var symbolToDescription$1 = function symbolToDescription(symbol) {
+  var symbolToDescription = function symbolToDescription(symbol) {
     var toStringResult = symbol.toString();
     var openingParenthesisIndex = toStringResult.indexOf("(");
     var closingParenthesisIndex = toStringResult.indexOf(")");
@@ -1756,13 +1938,13 @@ var __jsenv_assert__ = (function (exports) {
     return compositeWellKnownMap.get(value);
   };
 
-  var isPrimitive$1 = function isPrimitive(value) {
+  var isPrimitive = function isPrimitive(value) {
     return !isComposite(value);
   };
 
   var addWellKnownComposite = function addWellKnownComposite(value, name) {
     var visitValue = function visitValue(value, path) {
-      if (isPrimitive$1(value)) {
+      if (isPrimitive(value)) {
         primitiveWellKnownMap.set(value, path);
         return;
       }
@@ -2095,21 +2277,21 @@ var __jsenv_assert__ = (function (exports) {
     if (hasExtra && !hasMissing) {
       return createUnexpectedSymbolsMessage({
         path: path,
-        unexpectedSymbols: symbolArrayToString(extra)
+        unexpectedSymbols: symbolArrayToString$1(extra)
       });
     }
 
     if (!hasExtra && hasMissing) {
       return createMissingSymbolsMessage({
         path: path,
-        missingSymbols: symbolArrayToString(missing)
+        missingSymbols: symbolArrayToString$1(missing)
       });
     }
 
     return createUnexpectedAndMissingSymbolsMessage({
       path: path,
-      unexpectedSymbols: symbolArrayToString(extra),
-      missingSymbols: symbolArrayToString(missing)
+      unexpectedSymbols: symbolArrayToString$1(extra),
+      missingSymbols: symbolArrayToString$1(missing)
     });
   };
 
@@ -2132,7 +2314,7 @@ var __jsenv_assert__ = (function (exports) {
     return "unexpected and missing symbols.\n--- unexpected symbol list ---\n".concat(unexpectedSymbols.join("\n"), "\n--- missing symbol list ---\n").concat(missingSymbols.join("\n"), "\n--- at ---\n").concat(path);
   };
 
-  var symbolArrayToString = function symbolArrayToString(symbolArray) {
+  var symbolArrayToString$1 = function symbolArrayToString(symbolArray) {
     return symbolArray.map(function (symbol) {
       return inspect(symbol);
     });
@@ -2145,8 +2327,8 @@ var __jsenv_assert__ = (function (exports) {
     var actual = comparison.actual;
     return createUnexpectedSymbolsOrderMessage({
       path: path,
-      expectedSymbolsOrder: symbolArrayToString$1(expected),
-      actualSymbolsOrder: symbolArrayToString$1(actual)
+      expectedSymbolsOrder: symbolArrayToString(expected),
+      actualSymbolsOrder: symbolArrayToString(actual)
     });
   };
 
@@ -2157,7 +2339,7 @@ var __jsenv_assert__ = (function (exports) {
     return "unexpected symbols order.\n--- symbols order found ---\n".concat(actualSymbolsOrder.join("\n"), "\n--- symbols order expected ---\n").concat(expectedSymbolsOrder.join("\n"), "\n--- at ---\n").concat(path);
   };
 
-  var symbolArrayToString$1 = function symbolArrayToString(symbolArray) {
+  var symbolArrayToString = function symbolArrayToString(symbolArray) {
     return symbolArray.map(function (symbol) {
       return inspect(symbol);
     });
