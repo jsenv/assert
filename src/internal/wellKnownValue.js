@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { isComposite } from "./isComposite.js"
 import { propertyToAccessorString } from "./propertyToAccessorString.js"
 
@@ -65,6 +64,7 @@ export const addWellKnownComposite = (value, name) => {
   visitValue(value, [name])
 }
 
+/* globals global, window */
 if (typeof global === "object") {
   addWellKnownComposite(global, "global")
 }

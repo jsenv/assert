@@ -29,8 +29,7 @@ const eslintConfig = composeEslintConfig(
   {
     rules: {
       ...jsenvEslintRules,
-      // Example of code changing the ESLint configuration to enable a rule:
-      // 'prefer-const':  ['error']
+      "no-eval": ["off"],
     },
   },
 
@@ -48,6 +47,48 @@ const eslintConfig = composeEslintConfig(
       },
     },
     rules: jsenvEslintRulesForImport,
+  },
+
+  // html plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
+  },
+
+  // .html files are written for browsers
+  {
+    overrides: [
+      {
+        files: ["**/*.html"],
+        env: {
+          "shared-node-browser": false,
+          "browser": true,
+        },
+      },
+    ],
+  },
+
+  // test files are written for both
+  {
+    overrides: [
+      {
+        files: ["test/**/*.js"],
+        env: {
+          "shared-node-browser": false,
+          "browser": true,
+          "node": true,
+        },
+        settings: {
+          "import/resolver": {
+            "@jsenv/importmap-eslint-resolver": {
+              node: true,
+            },
+          },
+        },
+      },
+    ],
   },
 
   // .mjs files are written for Node.js
