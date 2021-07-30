@@ -5,12 +5,12 @@ import {
   launchWebkitTab,
   launchNode,
 } from "@jsenv/core"
-import * as jsenvConfig from "../../jsenv.config.js"
+import * as jsenvConfig from "../../jsenv.config.mjs"
 
 executeTestPlan({
   ...jsenvConfig,
   testPlan: {
-    "test/**/*.test.js": {
+    "test/**/*.test.mjs": {
       node: {
         launch: launchNode,
       },

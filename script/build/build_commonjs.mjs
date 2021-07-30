@@ -1,11 +1,11 @@
 import { buildProject, getBabelPluginMapForNode } from "@jsenv/core"
-import * as jsenvConfig from "../../jsenv.config.js"
+import * as jsenvConfig from "../../jsenv.config.mjs"
 
 buildProject({
   ...jsenvConfig,
   format: "commonjs",
   entryPointMap: {
-    "./index.js": "./main.cjs",
+    "./index.js": "./jsenv_assert.cjs",
   },
   babelPluginMap: getBabelPluginMapForNode(),
   bundleDirectoryClean: true,

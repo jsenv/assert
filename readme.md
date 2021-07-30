@@ -3,7 +3,7 @@
 Opinionated test assertion.
 
 [![npm package](https://img.shields.io/npm/v/@jsenv/assert.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/assert)
-[![github ci](https://github.com/jsenv/assert/workflows/ci/badge.svg)](https://github.com/jsenv/assert/actions?workflow=ci)
+[![github main](https://github.com/jsenv/assert/workflows/main/badge.svg)](https://github.com/jsenv/assert/actions?workflow=main)
 [![codecov coverage](https://codecov.io/gh/jsenv/assert/branch/master/graph/badge.svg)](https://codecov.io/gh/jsenv/assert)
 
 # Presentation
