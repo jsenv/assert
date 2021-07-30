@@ -925,7 +925,6 @@ const comparisonToPath = (comparison, name = "value") => {
   return path;
 };
 
-/* eslint-disable no-use-before-define */
 const valueToWellKnown = value => {
   const compositeWellKnownPath = valueToCompositeWellKnownPath(value);
 
@@ -987,6 +986,7 @@ const addWellKnownComposite = (value, name) => {
 
   visitValue(value, [name]);
 };
+/* globals global, window */
 
 if (typeof global === "object") {
   addWellKnownComposite(global, "global");
@@ -1612,4 +1612,4 @@ exports.assert = assert;
 exports.createAssertionError = createAssertionError;
 exports.isAssertionError = isAssertionError;
 
-//# sourceMappingURL=main.cjs.map
+//# sourceMappingURL=jsenv_assert.cjs.map

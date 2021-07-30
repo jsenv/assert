@@ -13,17 +13,26 @@ to resolve imports.
 import { getImportMapFromProjectFiles, writeImportMapFile } from "@jsenv/importmap-node-module"
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
-await writeImportMapFile(
-  [
-    getImportMapFromProjectFiles({
+const generateFile = async (importMapFileRelativeUrl, { dev, ...rest } = {}) => {
+  await writeImportMapFile(
+    [
+      getImportMapFromProjectFiles({
+        projectDirectoryUrl,
+        dev,
+        ...rest,
+      }),
+    ],
+    {
       projectDirectoryUrl,
-      runtime: "node",
-      dev: true,
-    }),
-  ],
-  {
-    projectDirectoryUrl,
-    importMapFileRelativeUrl: "./importmap.dev.importmap",
-    jsConfigFile: true,
-  },
-)
+      importMapFileRelativeUrl,
+      jsConfigFile: dev,
+    },
+  )
+}
+
+generateFile("importmap.prod.importmap", {
+  dev: false,
+})
+generateFile("importmap.dev.importmap", {
+  dev: true,
+})

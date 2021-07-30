@@ -38,10 +38,10 @@ var __jsenv_assert__ = (function (exports) {
   // e: error (called whenever something throws)
   // f: finish (always called at the end)
 
-  function createForOfIteratorHelper(o, allowArrayLike) {
-    var it;
+  function _createForOfIteratorHelper(o, allowArrayLike) {
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
 
-    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (!it) {
       // Fallback for engines without symbol support
       if (Array.isArray(o) || (it = unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
         if (it) o = it;
@@ -70,12 +70,12 @@ var __jsenv_assert__ = (function (exports) {
       throw new TypeError("Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
 
-    var normalCompletion = true;
-    var didErr = false;
-    var err;
+    var normalCompletion = true,
+        didErr = false,
+        err;
     return {
       s: function s() {
-        it = o[Symbol.iterator]();
+        it = it.call(o);
       },
       n: function n() {
         var step = it.next();
@@ -116,20 +116,35 @@ var __jsenv_assert__ = (function (exports) {
     return obj;
   });
 
-  function _objectSpread (target) {
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+
+      if (enumerableOnly) {
+        symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
+      }
+
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
     for (var i = 1; i < arguments.length; i++) {
-      // eslint-disable-next-line prefer-rest-params
-      var source = arguments[i] === null ? {} : arguments[i];
+      var source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        // eslint-disable-next-line no-loop-func
         ownKeys(Object(source), true).forEach(function (key) {
           _defineProperty(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
         Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
       } else {
-        // eslint-disable-next-line no-loop-func
         ownKeys(Object(source)).forEach(function (key) {
           Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
         });
@@ -137,23 +152,6 @@ var __jsenv_assert__ = (function (exports) {
     }
 
     return target;
-  } // This function is different to "Reflect.ownKeys". The enumerableOnly
-  // filters on symbol properties only. Returned string properties are always
-  // enumerable. It is good to use in objectSpread.
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      }); // eslint-disable-next-line prefer-spread
-
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
   }
 
   var objectWithoutPropertiesLoose = (function (source, excluded) {
@@ -325,6 +323,7 @@ var __jsenv_assert__ = (function (exports) {
     return false;
   };
 
+  var _excluded = ["parent", "children"];
   var compare = function compare(_ref, _ref2) {
     var actual = _ref.actual,
         expected = _ref.expected;
@@ -385,9 +384,9 @@ var __jsenv_assert__ = (function (exports) {
         parent = _ref7$parent === void 0 ? null : _ref7$parent,
         _ref7$children = _ref7.children,
         children = _ref7$children === void 0 ? [] : _ref7$children,
-        rest = _objectWithoutProperties(_ref7, ["parent", "children"]);
+        rest = _objectWithoutProperties(_ref7, _excluded);
 
-    var comparison = _objectSpread({
+    var comparison = _objectSpread2({
       parent: parent,
       children: children
     }, rest);
@@ -400,7 +399,7 @@ var __jsenv_assert__ = (function (exports) {
         expected = comparison.expected;
 
     if (_typeof(expected) === "object" && expected !== null && expectationSymbol in expected) {
-      subcompare(comparison, _objectSpread(_objectSpread({}, expected.data), {}, {
+      subcompare(comparison, _objectSpread2(_objectSpread2({}, expected.data), {}, {
         actual: actual,
         options: options
       }));
@@ -708,7 +707,7 @@ var __jsenv_assert__ = (function (exports) {
     var expected = comparison.expected;
     var expectedPropertyNames = Object.getOwnPropertyNames(expected); // eslint-disable-next-line no-unused-vars
 
-    var _iterator = createForOfIteratorHelper(expectedPropertyNames),
+    var _iterator = _createForOfIteratorHelper(expectedPropertyNames),
         _step;
 
     try {
@@ -728,7 +727,7 @@ var __jsenv_assert__ = (function (exports) {
     var expected = comparison.expected;
     var expectedSymbols = Object.getOwnPropertySymbols(expected); // eslint-disable-next-line no-unused-vars
 
-    var _iterator2 = createForOfIteratorHelper(expectedSymbols),
+    var _iterator2 = _createForOfIteratorHelper(expectedSymbols),
         _step2;
 
     try {
@@ -883,7 +882,7 @@ var __jsenv_assert__ = (function (exports) {
     }); // first check actual entries match expected entries
     // eslint-disable-next-line no-unused-vars
 
-    var _iterator3 = createForOfIteratorHelper(actualEntries),
+    var _iterator3 = _createForOfIteratorHelper(actualEntries),
         _step3;
 
     try {
@@ -990,7 +989,7 @@ var __jsenv_assert__ = (function (exports) {
       index++;
     };
 
-    var _iterator4 = createForOfIteratorHelper(actualEntries),
+    var _iterator4 = _createForOfIteratorHelper(actualEntries),
         _step4;
 
     try {
@@ -1121,7 +1120,7 @@ var __jsenv_assert__ = (function (exports) {
     if (Array.isArray(arr)) return arr;
   });
 
-  var iterableToArrayLimit = (function (arr, i) {
+  function _iterableToArrayLimit(arr, i) {
     // this is an expanded form of \`for...of\` that properly supports abrupt completions of
     // iterators etc. variable names have been minimised to reduce the size of this massive
     // helper. sometimes spec compliance is annoying :(
@@ -1131,19 +1130,17 @@ var __jsenv_assert__ = (function (exports) {
     // _e = _iteratorError
     // _i = _iterator
     // _s = _step
-    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+    if (_i == null) return;
     var _arr = [];
     var _n = true;
     var _d = false;
 
-    var _e;
-
-    var _i = arr[Symbol.iterator]();
-
-    var _s;
+    var _s, _e;
 
     try {
-      for (; !(_n = (_s = _i.next()).done); _n = true) {
+      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
         _arr.push(_s.value);
 
         if (i && _arr.length === i) break;
@@ -1153,22 +1150,21 @@ var __jsenv_assert__ = (function (exports) {
       _e = err;
     } finally {
       try {
-        if (!_n && _i.return !== null) _i.return();
+        if (!_n && _i["return"] != null) _i["return"]();
       } finally {
         if (_d) throw _e;
       }
-    } // eslint-disable-next-line consistent-return
-
+    }
 
     return _arr;
-  });
+  }
 
   var nonIterableRest = (function () {
     throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   });
 
   var _slicedToArray = (function (arr, i) {
-    return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+    return arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
   });
 
   // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/rules/numeric-separators-style.js
@@ -1710,10 +1706,10 @@ var __jsenv_assert__ = (function (exports) {
           primitiveType = _valueToType.primitiveType,
           compositeType = _valueToType.compositeType;
 
-      var options = _objectSpread(_objectSpread({}, scopedOptions), {}, {
+      var options = _objectSpread2(_objectSpread2({}, scopedOptions), {}, {
         nestedInspect: function nestedInspect(nestedValue) {
           var nestedOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-          return scopedInspect(nestedValue, _objectSpread(_objectSpread({}, scopedOptions), {}, {
+          return scopedInspect(nestedValue, _objectSpread2(_objectSpread2({}, scopedOptions), {}, {
             depth: scopedOptions.depth + 1
           }, nestedOptions));
         }
@@ -1727,7 +1723,7 @@ var __jsenv_assert__ = (function (exports) {
         return compositeMap[compositeType](scopedValue, options);
       }
 
-      return inspectConstructor("".concat(compositeType, "(").concat(inspectObject(scopedValue, options), ")"), _objectSpread(_objectSpread({}, options), {}, {
+      return inspectConstructor("".concat(compositeType, "(").concat(inspectObject(scopedValue, options), ")"), _objectSpread2(_objectSpread2({}, options), {}, {
         parenthesis: false
       }));
     };
@@ -1906,17 +1902,16 @@ var __jsenv_assert__ = (function (exports) {
     if (Array.isArray(arr)) return arrayLikeToArray(arr);
   });
 
-  // eslint-disable-next-line consistent-return
-  var iterableToArray = (function (iter) {
-    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-  });
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  }
 
   var nonIterableSpread = (function () {
     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   });
 
   var _toConsumableArray = (function (arr) {
-    return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+    return arrayWithoutHoles(arr) || _iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
   });
 
   var valueToWellKnown = function valueToWellKnown(value) {
@@ -1988,6 +1983,7 @@ var __jsenv_assert__ = (function (exports) {
 
     visitValue(value, [name]);
   };
+  /* globals global, window */
 
   if ((typeof global === "undefined" ? "undefined" : _typeof(global)) === "object") {
     addWellKnownComposite(global, "global");
@@ -2557,4 +2553,4 @@ var __jsenv_assert__ = (function (exports) {
 
 }({}));
 
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=jsenv_assert.js.map
