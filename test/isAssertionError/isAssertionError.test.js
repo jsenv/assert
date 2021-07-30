@@ -1,4 +1,4 @@
-import { isAssertionError, createAssertionError } from "../../index.js"
+import { isAssertionError, createAssertionError } from "@jsenv/assert"
 
 {
   const assertionErrorCandidate = false

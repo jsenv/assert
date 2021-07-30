@@ -17,10 +17,6 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
 {
   const actual = await executeInNewContext("new Error()")
   const expected = new Error()
-  // have to do this because source-maps-support install prepareStackTrace on Error
-  if (Error.captureStackTrace) {
-    actual.constructor.prepareStackTrace = Error.prepareStackTrace
-  }
   // webkit adds this property for error coming from iframe
   if (actual.sourceURL) {
     delete actual.sourceURL
@@ -31,9 +27,6 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
 {
   const actual = new Error()
   const expected = await executeInNewContext("new Error()")
-  if (Error.captureStackTrace) {
-    expected.constructor.prepareStackTrace = Error.prepareStackTrace
-  }
   // webkit adds this property for error coming from iframe
   if (expected.sourceURL) {
     delete expected.sourceURL
@@ -86,9 +79,6 @@ value[[Prototype]]`,
 if (typeof global === "object") {
   const actual = new Error()
   const expected = await executeInNewContext("new TypeError()")
-  if (Error.captureStackTrace) {
-    expected.constructor.prepareStackTrace = Error.prepareStackTrace
-  }
   try {
     assert({ actual, expected })
   } catch (e) {
