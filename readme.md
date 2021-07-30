@@ -26,7 +26,7 @@ assert({ actual, expected })
 
 [Node playground](https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html)
 
-# Why opinionated ?
+# Why opinionated?
 
 Two things:
 
