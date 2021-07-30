@@ -21,11 +21,11 @@ assert({ actual, expected })
 
 ![node terminal screenshot](./docs/node-example/node-terminal-screenshot.png)
 
-# Interactive examples
+# Playground
 
-Browser interactive example: https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html.
+[Browser playground](https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html)
 
-Node interactive example: https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html
+[Node playground](https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html)
 
 # How it works
 
