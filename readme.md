@@ -21,73 +21,11 @@ assert({ actual, expected })
 
 ![node terminal screenshot](./docs/node-example/node-terminal-screenshot.png)
 
-# Installation
+# Interactive examples
 
-```console
-npm install @jsenv/assert
-```
+Browser interactive example: https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html.
 
-## Browser usage
-
-<details>
-  <summary>Remote server using script type module</summary>
-
-```html
-<script type="module">
-  import { assert } from "https://unpkg.com/@jsenv/assert@latest/dist/esmodule/main.js"
-</script>
-```
-
-</details>
-
-<details>
-  <summary>Remote server using script</summary>
-
-```html
-<script src="https://unpkg.com/@jsenv/assert@latest/dist/global/main.js"></script>
-<script>
-  const { assert } = window.__jsenv_assert__
-</script>
-```
-
-</details>
-
-<details>
-  <summary>From node modules using script type module</summary>
-
-```html
-<script type="module">
-  import { assert } from "./node_modules/@jsenv/assert/dist/esmodule/main.js"
-</script>
-```
-
-Or
-
-```html
-<script type="module">
-  import { assert } from "@jsenv/assert"
-</script>
-```
-
-> Using `@jsenv/assert` notation means something in your setup maps `"@jsenv/assert"` to `"./node_modules/@jsenv/assert/index.js"`. Something like [import maps](https://github.com/WICG/import-maps), or webpack for instance.
-
-</details>
-
-— see also https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html.
-
-## Node usage
-
-```js
-import { assert } from "@jsenv/assert"
-```
-
-Or for node < 13
-
-```js
-const { assert } = require("@jsenv/assert")
-```
-
-— see also https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html
+Node interactive example: https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html
 
 # How it works
 
@@ -714,3 +652,47 @@ You can also check the following medium article for an other point of view.
 > The AAA (Arrange-Act-Assert) pattern has become almost a standard across the industry.
 >
 > — Paulo Gomes in [Unit Testing and the Arrange, Act and Assert (AAA) Pattern](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
+
+## Browser usage
+
+```html
+<script type="module">
+  import { assert } from "https://unpkg.com/@jsenv/assert@latest/dist/esmodule/jsenv_assert.js"
+</script>
+```
+
+It's also possible use a regular script tag
+
+```html
+<script src="https://unpkg.com/@jsenv/assert@latest/dist/global/jsenv_assert.js"></script>
+<script>
+  const { assert } = window.__jsenv_assert__
+</script>
+```
+
+For a local installation, use npm
+
+```console
+npm i --save-dev @jsenv/assert
+```
+
+Then use a tool like [@jsenv/importmap-node-module](https://github.com/jsenv/importmap-node-module) to generate _importmap.importmap_ and use it in your HTML file.
+
+```html
+<script type="importmap" src="importmap.importmap"></script>
+<script type="module">
+  import { assert } from "@jsenv/assert"
+</script>
+```
+
+## Node.js usage
+
+```js
+import { assert } from "@jsenv/assert"
+```
+
+It's also possible to use require
+
+```js
+const { assert } = require("@jsenv/assert")
+```
