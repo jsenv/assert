@@ -1,11 +1,11 @@
 {
 	"name": "@jsenv/assert",
 	"version": "2.2.5",
-	"description": "Opinionated test assertion.",
+	"description": "Opinionated test assertion",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/jsenv/jsenv-assert"
+		"url": "https://github.com/jsenv/assert"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -21,7 +21,6 @@
 		},
 		"./": "./"
 	},
-	"main": "dist/commonjs/main.cjs",
 	"files": [
 		"/dist/",
 		"/src/",

@@ -2,19 +2,9 @@
 
 Opinionated test assertion.
 
-[![github package](https://img.shields.io/github/package-json/v/jsenv/jsenv-assert.svg?logo=github&label=package)](https://github.com/jsenv/jsenv-assert/packages)
 [![npm package](https://img.shields.io/npm/v/@jsenv/assert.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/assert)
-[![github ci](https://github.com/jsenv/jsenv-assert/workflows/ci/badge.svg)](https://github.com/jsenv/jsenv-assert/actions?workflow=ci)
-[![codecov coverage](https://codecov.io/gh/jsenv/jsenv-assert/branch/master/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-assert)
-
-# Table of contents
-
-- [Presentation](#Presentation)
-- [Installation](#Installation)
-- [How it works](#How-it-works)
-- [Why opinionated ?](#Why-opinionated-)
-- [Examples](#Examples)
-- [AAA Pattern](#AAA-pattern)
+[![github ci](https://github.com/jsenv/assert/workflows/ci/badge.svg)](https://github.com/jsenv/assert/actions?workflow=ci)
+[![codecov coverage](https://codecov.io/gh/jsenv/assert/branch/master/graph/badge.svg)](https://codecov.io/gh/jsenv/assert)
 
 # Presentation
 
@@ -83,7 +73,7 @@ Or
 
 </details>
 
-— see also https://jsenv.github.io/jsenv-assert/browser-interactive-example/browser-interactive-example.html.
+— see also https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html.
 
 ## Node usage
 
@@ -97,7 +87,7 @@ Or for node < 13
 const { assert } = require("@jsenv/assert")
 ```
 
-— see also https://jsenv.github.io/jsenv-assert/node-interactive-example/node-interactive-example.html
+— see also https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html
 
 # How it works
 
