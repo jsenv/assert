@@ -39,9 +39,9 @@
           textInput.oninput = () => {
             textInput.setCustomValidity("")
             try {
-              eval(`(${textInput.value})`)
+              JSON.parse(textInput.value)
             } catch (e) {
-              textInput.setCustomValidity(`evaluation error: ${e.message}`)
+              textInput.setCustomValidity(`JSON.parse error: ${e.message}`)
             }
 
             radioInput.value = textInput.value
@@ -76,9 +76,9 @@
           textInput.oninput = () => {
             textInput.setCustomValidity("")
             try {
-              eval(`(${textInput.value})`)
+              JSON.parse(textInput.value)
             } catch (e) {
-              textInput.setCustomValidity(`evaluation error: ${e.message}`)
+              textInput.setCustomValidity(`JSON.parse error: ${e.message}`)
             }
 
             radioInput.value = textInput.value
@@ -99,11 +99,11 @@
 
     const actualInput = form.elements.actual
     const actualInputValue = actualInput.value
-    const actual = eval(`(${actualInputValue})`)
+    const actual = JSON.parse(actualInputValue)
 
     const expectedInput = form.elements.expected
     const expectedInputValue = expectedInput.value
-    const expected = eval(`(${expectedInputValue})`)
+    const expected = JSON.parse(expectedInputValue)
 
     const { assert } = window.__jsenv_assert__
     try {

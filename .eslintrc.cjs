@@ -29,7 +29,6 @@ const eslintConfig = composeEslintConfig(
   {
     rules: {
       ...jsenvEslintRules,
-      "no-eval": ["off"],
     },
   },
 
