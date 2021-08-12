@@ -1,4 +1,4 @@
-import { isAssertionError } from "../index.js"
+import { isAssertionError } from "@jsenv/assert"
 
 export const ensureAssertionErrorWithMessage = (value, message) => {
   if (!isAssertionError(value)) {

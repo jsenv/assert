@@ -24,7 +24,7 @@
 	"files": [
 		"/dist/",
 		"/src/",
-		"/maing.js"
+		"/main.js"
 	],
 	"scripts": {
 		"start": "node ./script/start/start_exploring.mjs",
