@@ -47,7 +47,7 @@
 		"postpublish": "node ./script/publish/restore_postinstall.mjs"
 	},
 	"dependencies": {
-		"@jsenv/inspect": "1.5.0",
+		"@jsenv/inspect": "1.6.0",
 		"@jsenv/logger": "4.0.1"
 	},
 	"devDependencies": {

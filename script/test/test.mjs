@@ -10,7 +10,7 @@ import * as jsenvConfig from "../../jsenv.config.mjs"
 executeTestPlan({
   ...jsenvConfig,
   testPlan: {
-    "test/**/*.test.js": {
+    "test/**/*.test.mjs": {
       node: {
         launch: launchNode,
       },
