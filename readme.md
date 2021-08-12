@@ -18,13 +18,16 @@ const expected = { foo: true }
 assert({ actual, expected })
 ```
 
-![node terminal screenshot](./docs/node-example/node-terminal-screenshot.png)
-
-# Playground
-
-[Browser playground](https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html)
-
-[Node playground](https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html)
+```console
+> node ./docs/demo.mjs
+Error [AssertionError]: unequal values.
+--- found ---
+false
+--- expected ---
+true
+--- at ---
+value.foo
+```
 
 # Why opinionated?
 
@@ -509,7 +512,19 @@ You can also check the following medium article for an other point of view.
 >
 > — Paulo Gomes in [Unit Testing and the Arrange, Act and Assert (AAA) Pattern](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
 
-## Browser usage
+# Node.js usage
+
+```js
+import { assert } from "@jsenv/assert"
+```
+
+It's also possible to use require
+
+```js
+const { assert } = require("@jsenv/assert")
+```
+
+# Browser usage
 
 ```html
 <script type="module">
@@ -541,14 +556,8 @@ Then use a tool like [@jsenv/importmap-node-module](https://github.com/jsenv/imp
 </script>
 ```
 
-## Node.js usage
+# Playground
 
-```js
-import { assert } from "@jsenv/assert"
-```
+[Browser playground](https://jsenv.github.io/assert/browser-interactive-example/browser-interactive-example.html)
 
-It's also possible to use require
-
-```js
-const { assert } = require("@jsenv/assert")
-```
+[Node playground](https://jsenv.github.io/assert/node-interactive-example/node-interactive-example.html)
