@@ -11,6 +11,6 @@ reportPerformanceImpact({
   ...readGitHubWorkflowEnv(),
   logLevel: "debug",
   installCommand: "npm install",
-  generatePerformanceReportFileRelativeUrl:
+  moduleGeneratingPerformanceReportRelativeUrl:
     "./.github/workflows/performance_impact/generate_performance_report.mjs",
 })
