@@ -7,7 +7,7 @@ buildProject({
   importMapFileRelativeUrl: "./importmap.prod.importmap",
   format: "esmodule",
   entryPointMap: {
-    "./index.js": "./jsenv_assert.js",
+    "./main.js": "./jsenv_assert.js",
   },
   buildDirectoryClean: true,
 })

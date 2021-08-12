@@ -1299,38 +1299,112 @@ var __jsenv_assert__ = (function (exports) {
     return parts.join("_");
   };
 
-  // https://github.com/joliss/js-string-escape/blob/master/index.js
-  // http://javascript.crockford.com/remedial.html
-  var quote = function quote(value) {
-    var string = String(value);
-    var i = 0;
-    var j = string.length;
-    var escapedString = "";
+  /* eslint-disable new-cap */
+  var inspectString = function inspectString(value, _ref) {
+    var preferSingleQuote = _ref.preferSingleQuote;
+    return escapeString(value, {
+      preferSingleQuote: preferSingleQuote
+    });
+  }; // https://github.com/nodejs/node/blob/31d1d0c4c19fea5007eb8c55a4cb1178f295c8ca/lib/internal/util/inspect.js#L463
 
-    while (i < j) {
-      var char = string[i];
-      var escapedChar = void 0;
+  var escapeString = function escapeString(str, _ref2) {
+    var preferSingleQuote = _ref2.preferSingleQuote;
+    var escapeSingleQuote = preferSingleQuote;
+    var result = "";
+    var last = 0;
+    var lastIndex = str.length;
 
-      if (char === '"' || char === "'" || char === "\\") {
-        escapedChar = "\\".concat(char);
-      } else if (char === "\n") {
-        escapedChar = "\\n";
-      } else if (char === "\r") {
-        escapedChar = "\\r";
-      } else if (char === "\u2028") {
-        escapedChar = "\\u2028";
-      } else if (char === "\u2029") {
-        escapedChar = "\\u2029";
-      } else {
-        escapedChar = char;
+    for (var i = 0; i < lastIndex; i++) {
+      var point = str.charCodeAt(i);
+
+      if (escapeSingleQuote && point === 39 || point === 92 || point < 32 || point > 126 && point < 160 || // line separators
+      point === 8232 || point === 8233) {
+        // eslint-disable-next-line no-nested-ternary
+        var replacement = point === 8232 ? "\\u2028" : point === 8233 ? "\\u2029" : meta[point];
+
+        if (last === i) {
+          result += replacement;
+        } else {
+          result += "".concat(str.slice(last, i)).concat(replacement);
+        }
+
+        last = i + 1;
       }
-
-      escapedString += escapedChar;
-      i++;
     }
 
-    return escapedString;
+    if (last !== lastIndex) {
+      result += str.slice(last);
+    }
+
+    return quote(result, {
+      preferSingleQuote: preferSingleQuote
+    });
   };
+
+  var quote = function quote(string, _ref3) {
+    var preferSingleQuote = _ref3.preferSingleQuote;
+
+    if (preferSingleQuote) {
+      return "'".concat(string, "'");
+    }
+
+    return "\"".concat(string, "\"");
+  }; // prettier-ignore
+
+
+  var meta = ['\\x00', '\\x01', '\\x02', '\\x03', '\\x04', '\\x05', '\\x06', '\\x07', // x07
+  '\\b', '\\t', '\\n', '\\x0B', '\\f', '\\r', '\\x0E', '\\x0F', // x0F
+  '\\x10', '\\x11', '\\x12', '\\x13', '\\x14', '\\x15', '\\x16', '\\x17', // x17
+  '\\x18', '\\x19', '\\x1A', '\\x1B', '\\x1C', '\\x1D', '\\x1E', '\\x1F', // x1F
+  '', '', '', '', '', '', '', "\\'", '', '', '', '', '', '', '', '', // x2F
+  '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // x3F
+  '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // x4F
+  '', '', '', '', '', '', '', '', '', '', '', '', '\\\\', '', '', '', // x5F
+  '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', // x6F
+  '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '\\x7F', // x7F
+  '\\x80', '\\x81', '\\x82', '\\x83', '\\x84', '\\x85', '\\x86', '\\x87', // x87
+  '\\x88', '\\x89', '\\x8A', '\\x8B', '\\x8C', '\\x8D', '\\x8E', '\\x8F', // x8F
+  '\\x90', '\\x91', '\\x92', '\\x93', '\\x94', '\\x95', '\\x96', '\\x97', // x97
+  '\\x98', '\\x99', '\\x9A', '\\x9B', '\\x9C', '\\x9D', '\\x9E', '\\x9F' // x9F
+  ];
+
+  var inspectSymbol = function inspectSymbol(value, _ref) {
+    var nestedInspect = _ref.nestedInspect,
+        parenthesis = _ref.parenthesis;
+    var symbolDescription = symbolToDescription$1(value);
+    var symbolDescriptionSource = symbolDescription ? nestedInspect(symbolDescription) : "";
+    var symbolSource = "Symbol(".concat(symbolDescriptionSource, ")");
+    if (parenthesis) return "".concat(symbolSource);
+    return symbolSource;
+  };
+  var symbolToDescription$1 = "description" in Symbol.prototype ? function (symbol) {
+    return symbol.description;
+  } : function (symbol) {
+    var toStringResult = symbol.toString();
+    var openingParenthesisIndex = toStringResult.indexOf("(");
+    var closingParenthesisIndex = toStringResult.indexOf(")");
+    var symbolDescription = toStringResult.slice(openingParenthesisIndex + 1, closingParenthesisIndex);
+    return symbolDescription;
+  };
+
+  var inspectUndefined = function inspectUndefined() {
+    return "undefined";
+  };
+
+  var inspectBigInt = function inspectBigInt(value) {
+    return "".concat(value, "n");
+  };
+
+  var primitiveMap = {
+    boolean: inspectBoolean,
+    null: inspectNull,
+    number: inspectNumber,
+    string: inspectString,
+    symbol: inspectSymbol,
+    undefined: inspectUndefined,
+    bigint: inspectBigInt
+  };
+
   var preNewLineAndIndentation = function preNewLineAndIndentation(value, _ref) {
     var depth = _ref.depth,
         indentUsingTab = _ref.indentUsingTab,
@@ -1380,49 +1454,6 @@ var __jsenv_assert__ = (function (exports) {
       indentUsingTab: indentUsingTab,
       indentSize: indentSize
     }));
-  };
-
-  var inspectString = function inspectString(value, _ref) {
-    var singleQuote = _ref.singleQuote;
-    var quotedValue = quote(value);
-    return singleQuote ? "'".concat(quotedValue, "'") : "\"".concat(quotedValue, "\"");
-  };
-
-  var inspectSymbol = function inspectSymbol(value, _ref) {
-    var nestedInspect = _ref.nestedInspect,
-        parenthesis = _ref.parenthesis;
-    var symbolDescription = symbolToDescription$1(value);
-    var symbolDescriptionSource = symbolDescription ? nestedInspect(symbolDescription) : "";
-    var symbolSource = "Symbol(".concat(symbolDescriptionSource, ")");
-    if (parenthesis) return "".concat(symbolSource);
-    return symbolSource;
-  };
-  var symbolToDescription$1 = "description" in Symbol.prototype ? function (symbol) {
-    return symbol.description;
-  } : function (symbol) {
-    var toStringResult = symbol.toString();
-    var openingParenthesisIndex = toStringResult.indexOf("(");
-    var closingParenthesisIndex = toStringResult.indexOf(")");
-    var symbolDescription = toStringResult.slice(openingParenthesisIndex + 1, closingParenthesisIndex);
-    return symbolDescription;
-  };
-
-  var inspectUndefined = function inspectUndefined() {
-    return "undefined";
-  };
-
-  var inspectBigInt = function inspectBigInt(value) {
-    return "".concat(value, "n");
-  };
-
-  var primitiveMap = {
-    boolean: inspectBoolean,
-    null: inspectNull,
-    number: inspectNumber,
-    string: inspectString,
-    symbol: inspectSymbol,
-    undefined: inspectUndefined,
-    bigint: inspectBigInt
   };
 
   var inspectConstructor = function inspectConstructor(value, _ref) {
@@ -1686,8 +1717,8 @@ var __jsenv_assert__ = (function (exports) {
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
         _ref$parenthesis = _ref.parenthesis,
         parenthesis = _ref$parenthesis === void 0 ? false : _ref$parenthesis,
-        _ref$singleQuote = _ref.singleQuote,
-        singleQuote = _ref$singleQuote === void 0 ? false : _ref$singleQuote,
+        _ref$preferSingleQuot = _ref.preferSingleQuote,
+        preferSingleQuote = _ref$preferSingleQuot === void 0 ? false : _ref$preferSingleQuot,
         _ref$useNew = _ref.useNew,
         useNew = _ref$useNew === void 0 ? false : _ref$useNew,
         _ref$objectConstructo = _ref.objectConstructor,
@@ -1730,7 +1761,7 @@ var __jsenv_assert__ = (function (exports) {
 
     return scopedInspect(value, {
       parenthesis: parenthesis,
-      singleQuote: singleQuote,
+      preferSingleQuote: preferSingleQuote,
       useNew: useNew,
       objectConstructor: objectConstructor,
       showFunctionBody: showFunctionBody,

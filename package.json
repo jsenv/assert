@@ -16,7 +16,7 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"import": "./index.js",
+			"import": "./main.js",
 			"require": "./dist/commonjs/jsenv_assert.cjs"
 		},
 		"./*": "./*"
@@ -24,7 +24,7 @@
 	"files": [
 		"/dist/",
 		"/src/",
-		"/index.js"
+		"/maing.js"
 	],
 	"scripts": {
 		"start": "node ./script/start/start_exploring.mjs",

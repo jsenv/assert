@@ -7,7 +7,7 @@ buildProject({
   importMapFileRelativeUrl: "./importmap.prod.importmap",
   format: "global",
   entryPointMap: {
-    "./index.js": "./jsenv_assert.js",
+    "./main.js": "./jsenv_assert.js",
   },
   globalName: "__jsenv_assert__",
   buildDirectoryClean: true,
