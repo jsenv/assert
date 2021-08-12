@@ -3,6 +3,6 @@ import { reportFileSizeImpact, readGitHubWorkflowEnv } from "@jsenv/file-size-im
 reportFileSizeImpact({
   ...readGitHubWorkflowEnv(),
   logLevel: "debug",
-  buildCommand: null,
+  buildCommand: "npm run dist",
   moduleGeneratingFileSizeReportRelativeUrl: "./script/file_size/generate_file_size_report.mjs",
 })

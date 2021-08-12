@@ -6,6 +6,7 @@ export const generateFileSizeReport = async () => {
     trackingConfig: {
       "dist files": {
         "./dist/**/*.js": true,
+        "./dist/**/*.cjs": true,
         "./dist/**/*.map": false,
       },
     },
