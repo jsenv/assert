@@ -182,6 +182,21 @@ const createAnyExpectation = expectedConstructor => {
     }
   });
 };
+const createMatchesRegExpExpectation = regexp => {
+  return createExpectation({
+    type: "matchesRegExp",
+    expected: regexp,
+    comparer: ({
+      actual
+    }) => {
+      if (typeof actual !== "string") {
+        return false;
+      }
+
+      return regexp.test(actual);
+    }
+  });
+};
 
 const createComparison = ({
   parent = null,
@@ -916,7 +931,7 @@ const comparisonToPath = (comparison, name = "value") => {
       return previous;
     }
 
-    if (type === "any") {
+    if (type === "any" || type === "matchesRegExp") {
       return previous;
     }
 
@@ -1440,6 +1455,33 @@ ${valueToString(comparison.expected.value)}
 --- at ---
 ${comparisonToPath(comparison.parent)}`;
 
+const matchesRegExpToErrorMessage = comparison => {
+  if (comparison.type !== "matchesRegExp") {
+    return undefined;
+  }
+
+  const path = comparisonToPath(comparison);
+  const actualValue = valueToString(comparison.actual);
+  const expectedRegexp = valueToString(comparison.expected);
+  return createMatchesRegExpMessage({
+    path,
+    actualValue,
+    expectedRegexp
+  });
+};
+
+const createMatchesRegExpMessage = ({
+  path,
+  expectedRegexp,
+  actualValue
+}) => `unexpected value.
+--- found ---
+${actualValue}
+--- expected ---
+matchesRegExp(${expectedRegexp})
+--- at ---
+${path}`;
+
 const notComparisonToErrorMessage = comparison => {
   if (comparison.type !== "not") return undefined;
   const path = comparisonToPath(comparison);
@@ -1494,9 +1536,9 @@ const arrayLengthComparisonToMessage = comparison => {
 };
 
 /* eslint-disable import/max-dependencies */
-const comparisonToErrorMessage = comparison => {
+const errorMessageFromComparison = comparison => {
   const failedComparison = deepestComparison(comparison);
-  return firstFunctionReturningSomething([anyComparisonToErrorMessage, mapEntryComparisonToErrorMessage, notComparisonToErrorMessage, prototypeComparisonToErrorMessage, referenceComparisonToErrorMessage, propertiesComparisonToErrorMessage, propertiesOrderComparisonToErrorMessage, symbolsComparisonToErrorMessage, symbolsOrderComparisonToErrorMessage, setSizeComparisonToMessage, arrayLengthComparisonToMessage], failedComparison) || defaultComparisonToErrorMessage(failedComparison);
+  return firstFunctionReturningSomething([anyComparisonToErrorMessage, mapEntryComparisonToErrorMessage, notComparisonToErrorMessage, matchesRegExpToErrorMessage, prototypeComparisonToErrorMessage, referenceComparisonToErrorMessage, propertiesComparisonToErrorMessage, propertiesOrderComparisonToErrorMessage, symbolsComparisonToErrorMessage, symbolsOrderComparisonToErrorMessage, setSizeComparisonToMessage, arrayLengthComparisonToMessage], failedComparison) || defaultComparisonToErrorMessage(failedComparison);
 };
 
 const deepestComparison = comparison => {
@@ -1533,7 +1575,6 @@ const createAssertionError = message => {
   return error;
 };
 
-/* eslint-disable no-use-before-define */
 const assert = (...args) => {
   if (args.length === 0) {
     throw new Error(`assert must be called with { actual, expected }, missing first argument`);
@@ -1566,6 +1607,16 @@ assert.not = value => {
 
 assert.any = Constructor => {
   return createAnyExpectation(Constructor);
+};
+
+assert.matchesRegExp = regexp => {
+  const isRegExp = regexp instanceof RegExp;
+
+  if (!isRegExp) {
+    throw new TypeError(`assert.matchesRegExp must be called with a regexp, received ${regexp}`);
+  }
+
+  return createMatchesRegExpExpectation(regexp);
 };
 /*
  * anyOrder is not documented because ../readme.md#Why-opinionated-
@@ -1602,8 +1653,12 @@ const _assert = ({
   });
 
   if (comparison.failed) {
-    const error = createAssertionError(message || comparisonToErrorMessage(comparison));
-    if (Error.captureStackTrace) Error.captureStackTrace(error, assert);
+    const error = createAssertionError(message || errorMessageFromComparison(comparison));
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(error, assert);
+    }
+
     throw error;
   }
 };

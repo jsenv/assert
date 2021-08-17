@@ -52,6 +52,19 @@ export const createAnyExpectation = (expectedConstructor) => {
   })
 }
 
+export const createMatchesRegExpExpectation = (regexp) => {
+  return createExpectation({
+    type: "matchesRegExp",
+    expected: regexp,
+    comparer: ({ actual }) => {
+      if (typeof actual !== "string") {
+        return false
+      }
+      return regexp.test(actual)
+    },
+  })
+}
+
 const createComparison = ({ parent = null, children = [], ...rest }) => {
   const comparison = {
     parent,

@@ -5,10 +5,10 @@ export const ensureAssertionErrorWithMessage = (value, message) => {
     throw new Error(`assertionError expected, got ${value.stack}`)
   }
   if (value.message !== message) {
-    throw new Error(`unequal assertionError message.
---- message ---
+    throw new Error(`unequal assertion error messages
+___________________ MESSAGE FOUND ___________________
 ${value.message}
---- expected message ---
+___________________ MESSAGE EXPECTED ___________________
 ${message}`)
   }
 }
