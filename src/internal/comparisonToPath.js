@@ -71,7 +71,7 @@ export const comparisonToPath = (comparison, name = "value") => {
     if (type === "identity" || type === "not") {
       return previous
     }
-    if (type === "any") {
+    if (type === "any" || type === "matchesRegExp") {
       return previous
     }
     return `${previous} type:${type}, data:${data}`

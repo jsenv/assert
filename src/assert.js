@@ -1,6 +1,11 @@
 /* eslint-disable no-use-before-define */
-import { compare, createNotExpectation, createAnyExpectation } from "./internal/compare.js"
-import { comparisonToErrorMessage } from "./internal/toErrorMessage/comparisonToErrorMessage.js"
+import {
+  compare,
+  createNotExpectation,
+  createAnyExpectation,
+  createMatchesRegexpExpectation,
+} from "./internal/compare.js"
+import { errorMessageFromComparison } from "./internal/errorMessageFromComparison.js"
 import { createAssertionError } from "./assertionError.js"
 
 export const assert = (...args) => {
@@ -42,6 +47,14 @@ assert.any = (Constructor) => {
   return createAnyExpectation(Constructor)
 }
 
+assert.matchesRegexp = (regexp) => {
+  const isRegExp = regexp instanceof RegExp
+  if (!isRegExp) {
+    throw new TypeError(`assert.matchesRegexp must be called with a regexp, received ${regexp}`)
+  }
+  return createMatchesRegexpExpectation(regexp)
+}
+
 /*
  * anyOrder is not documented because ../readme.md#Why-opinionated-
  * but I feel like the property order comparison might be too strict
@@ -68,8 +81,10 @@ const _assert = ({ actual, expected, message, anyOrder = false }) => {
 
   const comparison = compare(expectation, { anyOrder })
   if (comparison.failed) {
-    const error = createAssertionError(message || comparisonToErrorMessage(comparison))
-    if (Error.captureStackTrace) Error.captureStackTrace(error, assert)
+    const error = createAssertionError(message || errorMessageFromComparison(comparison))
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(error, assert)
+    }
     throw error
   }
 }
