@@ -3,13 +3,13 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
 
 {
   const actual = "expired 3 seconds ago"
-  const expected = assert.matchesRegexp(/expired \d seconds ago/)
+  const expected = assert.matchesRegExp(/expired \d seconds ago/)
   assert({ actual, expected })
 }
 
 {
   const actual = "expired n seconds ago"
-  const expected = assert.matchesRegexp(/expired \d seconds ago/)
+  const expected = assert.matchesRegExp(/expired \d seconds ago/)
   try {
     assert({ actual, expected })
   } catch (e) {

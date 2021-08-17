@@ -52,7 +52,7 @@ export const createAnyExpectation = (expectedConstructor) => {
   })
 }
 
-export const createMatchesRegexpExpectation = (regexp) => {
+export const createMatchesRegExpExpectation = (regexp) => {
   return createExpectation({
     type: "matchesRegExp",
     expected: regexp,

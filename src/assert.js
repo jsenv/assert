@@ -1,9 +1,8 @@
-/* eslint-disable no-use-before-define */
 import {
   compare,
   createNotExpectation,
   createAnyExpectation,
-  createMatchesRegexpExpectation,
+  createMatchesRegExpExpectation,
 } from "./internal/compare.js"
 import { errorMessageFromComparison } from "./internal/errorMessageFromComparison.js"
 import { createAssertionError } from "./assertionError.js"
@@ -47,12 +46,12 @@ assert.any = (Constructor) => {
   return createAnyExpectation(Constructor)
 }
 
-assert.matchesRegexp = (regexp) => {
+assert.matchesRegExp = (regexp) => {
   const isRegExp = regexp instanceof RegExp
   if (!isRegExp) {
-    throw new TypeError(`assert.matchesRegexp must be called with a regexp, received ${regexp}`)
+    throw new TypeError(`assert.matchesRegExp must be called with a regexp, received ${regexp}`)
   }
-  return createMatchesRegexpExpectation(regexp)
+  return createMatchesRegExpExpectation(regexp)
 }
 
 /*
