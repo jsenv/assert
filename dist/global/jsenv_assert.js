@@ -378,13 +378,28 @@ var __jsenv_assert__ = (function (exports) {
       }
     });
   };
+  var createMatchesRegExpExpectation = function createMatchesRegExpExpectation(regexp) {
+    return createExpectation({
+      type: "matchesRegExp",
+      expected: regexp,
+      comparer: function comparer(_ref7) {
+        var actual = _ref7.actual;
 
-  var createComparison = function createComparison(_ref7) {
-    var _ref7$parent = _ref7.parent,
-        parent = _ref7$parent === void 0 ? null : _ref7$parent,
-        _ref7$children = _ref7.children,
-        children = _ref7$children === void 0 ? [] : _ref7$children,
-        rest = _objectWithoutProperties(_ref7, _excluded);
+        if (typeof actual !== "string") {
+          return false;
+        }
+
+        return regexp.test(actual);
+      }
+    });
+  };
+
+  var createComparison = function createComparison(_ref8) {
+    var _ref8$parent = _ref8.parent,
+        parent = _ref8$parent === void 0 ? null : _ref8$parent,
+        _ref8$children = _ref8.children,
+        children = _ref8$children === void 0 ? [] : _ref8$children,
+        rest = _objectWithoutProperties(_ref8, _excluded);
 
     var comparison = _objectSpread2({
       parent: parent,
@@ -435,9 +450,9 @@ var __jsenv_assert__ = (function (exports) {
           return referenceComparisonCandidate !== comparison && referenceComparisonCandidate.actual === comparison.actual;
         }),
         expected: expectedReference,
-        comparer: function comparer(_ref8) {
-          var actual = _ref8.actual,
-              expected = _ref8.expected;
+        comparer: function comparer(_ref9) {
+          var actual = _ref9.actual,
+              expected = _ref9.expected;
           return actual === expected;
         },
         options: options
@@ -513,14 +528,14 @@ var __jsenv_assert__ = (function (exports) {
     return true;
   };
 
-  var subcompare = function subcompare(comparison, _ref9) {
-    var type = _ref9.type,
-        data = _ref9.data,
-        actual = _ref9.actual,
-        expected = _ref9.expected,
-        _ref9$comparer = _ref9.comparer,
-        comparer = _ref9$comparer === void 0 ? defaultComparer : _ref9$comparer,
-        options = _ref9.options;
+  var subcompare = function subcompare(comparison, _ref10) {
+    var type = _ref10.type,
+        data = _ref10.data,
+        actual = _ref10.actual,
+        expected = _ref10.expected,
+        _ref10$comparer = _ref10.comparer,
+        comparer = _ref10$comparer === void 0 ? defaultComparer : _ref10$comparer,
+        options = _ref10.options;
     var subcomparison = createComparison({
       type: type,
       data: data,
@@ -581,9 +596,9 @@ var __jsenv_assert__ = (function (exports) {
       type: "extensibility",
       actual: Object.isExtensible(comparison.actual) ? "extensible" : "non-extensible",
       expected: Object.isExtensible(comparison.expected) ? "extensible" : "non-extensible",
-      comparer: function comparer(_ref10) {
-        var actual = _ref10.actual,
-            expected = _ref10.expected;
+      comparer: function comparer(_ref11) {
+        var actual = _ref11.actual,
+            expected = _ref11.expected;
         return actual === expected;
       },
       options: options
@@ -596,9 +611,9 @@ var __jsenv_assert__ = (function (exports) {
       type: "integrity",
       actual: getIntegriy(comparison.actual),
       expected: getIntegriy(comparison.expected),
-      comparer: function comparer(_ref11) {
-        var actual = _ref11.actual,
-            expected = _ref11.expected;
+      comparer: function comparer(_ref12) {
+        var actual = _ref12.actual,
+            expected = _ref12.expected;
         return actual === expected;
       },
       options: options
@@ -754,9 +769,9 @@ var __jsenv_assert__ = (function (exports) {
       data: property,
       actual: actualDescriptor.configurable ? "configurable" : "non-configurable",
       expected: expectedDescriptor.configurable ? "configurable" : "non-configurable",
-      comparer: function comparer(_ref12) {
-        var actual = _ref12.actual,
-            expected = _ref12.expected;
+      comparer: function comparer(_ref13) {
+        var actual = _ref13.actual,
+            expected = _ref13.expected;
         return actual === expected;
       },
       options: options
@@ -767,9 +782,9 @@ var __jsenv_assert__ = (function (exports) {
       data: property,
       actual: actualDescriptor.enumerable ? "enumerable" : "non-enumerable",
       expected: expectedDescriptor.enumerable ? "enumerable" : "non-enumerable",
-      comparer: function comparer(_ref13) {
-        var actual = _ref13.actual,
-            expected = _ref13.expected;
+      comparer: function comparer(_ref14) {
+        var actual = _ref14.actual,
+            expected = _ref14.expected;
         return actual === expected;
       },
       options: options
@@ -780,9 +795,9 @@ var __jsenv_assert__ = (function (exports) {
       data: property,
       actual: actualDescriptor.writable ? "writable" : "non-writable",
       expected: expectedDescriptor.writable ? "writable" : "non-writable",
-      comparer: function comparer(_ref14) {
-        var actual = _ref14.actual,
-            expected = _ref14.expected;
+      comparer: function comparer(_ref15) {
+        var actual = _ref15.actual,
+            expected = _ref15.expected;
         return actual === expected;
       },
       options: options
@@ -1920,7 +1935,7 @@ var __jsenv_assert__ = (function (exports) {
         return previous;
       }
 
-      if (type === "any") {
+      if (type === "any" || type === "matchesRegExp") {
         return previous;
       }
 
@@ -2407,6 +2422,28 @@ var __jsenv_assert__ = (function (exports) {
     return "an entry is missing.\n--- missing entry key ---\n".concat(valueToString(comparison.expected.key), "\n--- missing entry value ---\n").concat(valueToString(comparison.expected.value), "\n--- at ---\n").concat(comparisonToPath(comparison.parent));
   };
 
+  var matchesRegExpToErrorMessage = function matchesRegExpToErrorMessage(comparison) {
+    if (comparison.type !== "matchesRegExp") {
+      return undefined;
+    }
+
+    var path = comparisonToPath(comparison);
+    var actualValue = valueToString(comparison.actual);
+    var expectedRegexp = valueToString(comparison.expected);
+    return createMatchesRegExpMessage({
+      path: path,
+      actualValue: actualValue,
+      expectedRegexp: expectedRegexp
+    });
+  };
+
+  var createMatchesRegExpMessage = function createMatchesRegExpMessage(_ref) {
+    var path = _ref.path,
+        expectedRegexp = _ref.expectedRegexp,
+        actualValue = _ref.actualValue;
+    return "unexpected value.\n--- found ---\n".concat(actualValue, "\n--- expected ---\nmatchesRegExp(").concat(expectedRegexp, ")\n--- at ---\n").concat(path);
+  };
+
   var notComparisonToErrorMessage = function notComparisonToErrorMessage(comparison) {
     if (comparison.type !== "not") return undefined;
     var path = comparisonToPath(comparison);
@@ -2456,9 +2493,9 @@ var __jsenv_assert__ = (function (exports) {
   };
 
   /* eslint-disable import/max-dependencies */
-  var comparisonToErrorMessage = function comparisonToErrorMessage(comparison) {
+  var errorMessageFromComparison = function errorMessageFromComparison(comparison) {
     var failedComparison = deepestComparison(comparison);
-    return firstFunctionReturningSomething([anyComparisonToErrorMessage, mapEntryComparisonToErrorMessage, notComparisonToErrorMessage, prototypeComparisonToErrorMessage, referenceComparisonToErrorMessage, propertiesComparisonToErrorMessage, propertiesOrderComparisonToErrorMessage, symbolsComparisonToErrorMessage, symbolsOrderComparisonToErrorMessage, setSizeComparisonToMessage, arrayLengthComparisonToMessage], failedComparison) || defaultComparisonToErrorMessage(failedComparison);
+    return firstFunctionReturningSomething([anyComparisonToErrorMessage, mapEntryComparisonToErrorMessage, notComparisonToErrorMessage, matchesRegExpToErrorMessage, prototypeComparisonToErrorMessage, referenceComparisonToErrorMessage, propertiesComparisonToErrorMessage, propertiesOrderComparisonToErrorMessage, symbolsComparisonToErrorMessage, symbolsOrderComparisonToErrorMessage, setSizeComparisonToMessage, arrayLengthComparisonToMessage], failedComparison) || defaultComparisonToErrorMessage(failedComparison);
   };
 
   var deepestComparison = function deepestComparison(comparison) {
@@ -2533,6 +2570,16 @@ var __jsenv_assert__ = (function (exports) {
   assert.any = function (Constructor) {
     return createAnyExpectation(Constructor);
   };
+
+  assert.matchesRegExp = function (regexp) {
+    var isRegExp = regexp instanceof RegExp;
+
+    if (!isRegExp) {
+      throw new TypeError("assert.matchesRegExp must be called with a regexp, received ".concat(regexp));
+    }
+
+    return createMatchesRegExpExpectation(regexp);
+  };
   /*
    * anyOrder is not documented because ../readme.md#Why-opinionated-
    * but I feel like the property order comparison might be too strict
@@ -2568,8 +2615,12 @@ var __jsenv_assert__ = (function (exports) {
     });
 
     if (comparison.failed) {
-      var error = createAssertionError(message || comparisonToErrorMessage(comparison));
-      if (Error.captureStackTrace) Error.captureStackTrace(error, assert);
+      var error = createAssertionError(message || errorMessageFromComparison(comparison));
+
+      if (Error.captureStackTrace) {
+        Error.captureStackTrace(error, assert);
+      }
+
       throw error;
     }
   };
