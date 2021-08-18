@@ -85,31 +85,6 @@ window.Error.prototype
 value[[Prototype]]
 ```
 
-# Property value failure
-
-```js
-import { assert } from "@jsenv/assert"
-
-const actual = { foo: true }
-const expected = { foo: false }
-
-try {
-  assert({ actual, expected })
-} catch (e) {
-  console.log(e.message)
-}
-```
-
-```console
-AssertionError: unequal values
---- found ---
-true
---- expected ---
-false
---- at ---
-value.foo
-```
-
 ## Properties order failure
 
 ```js
@@ -137,38 +112,11 @@ AssertionError: unexpected properties order
 value
 ```
 
-## Property configurability failure
-
-```js
-import { assert } from "@jsenv/assert"
-
-const actual = Object.defineProperty({}, "answer", { value: 42 })
-const expected = { answer: 42 }
-
-try {
-  assert({ actual, expected })
-} catch (e) {
-  console.log(e.message)
-}
-```
-
-```console
-AssertionError: unequal values
---- found ---
-"non-configurable"
---- expected ---
-"configurable"
---- at ---
-value.answer[[Configurable]]
-```
-
 # Common use cases
 
 This part gives illustrates how _assert_ should be used in common use cases.
 
 ## Assert a function throws
-
-You have a function throwing an error in certain cistumstances.
 
 _circle.js_
 
@@ -211,8 +159,6 @@ try {
 
 ## Assert a callback is called
 
-You want to test that, under certain circumstances, a function will be called.
-
 _abort_signal.js_
 
 ```js
@@ -231,6 +177,7 @@ export const createAbortSignal = () => {
 _abort_signal.test.js_
 
 ```js
+// This test ensures calling abortSignal.abort is calling abortSignal.onabort()
 import { assert } from "@jsenv/assert"
 import { createAbortSignal } from "./abort_signal.js"
 
@@ -250,7 +197,7 @@ const expected = true
 assert({ actual, expected })
 ```
 
-By the way, code above is a great example of the [AAA pattern](#AAA-pattern).
+> Code above is a great example of the [AAA pattern](#AAA-pattern).
 
 ## Assert callback will be called
 
@@ -283,9 +230,6 @@ assert({ actual, expected })
 
 ## Assert any value of a given type
 
-Let's say you have a function returning a user.
-You cannot control the user _creationTime_ easily so you just want to ensure it's a number.
-
 _user.js_
 
 ```js
@@ -314,10 +258,6 @@ assert({ actual, expected })
 
 ## Assert an other value
 
-You have a function returning a random user name that must not be the current user name.
-Here we don't care about the value itself.
-What is important is to test it's not an other value.
-
 _randomize_user_name.js_
 
 ```js
@@ -345,6 +285,8 @@ const ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 _randomize_user_name.test.js_
 
 ```js
+// Here we want to ensure the value returned by getRandomDifferentUserName
+// is not the curent user name, the value itself is not important
 import { assert } from "@jsenv/assert"
 import { getRandomDifferentUserName } from "./_randomize_user_name.js"
 
@@ -355,8 +297,6 @@ assert({ actual, expected })
 ```
 
 ## Assert subset of properties
-
-You have an object and you care only about a part of it.
 
 _user.js_
 
@@ -373,20 +313,18 @@ export const getUser = () => {
 _user.test.js_
 
 ```js
+// Here it is assumed that the important thing to tests are
+// the user "name" and "age", the user object is allowed to have more properties
 import { assert } from "@jsenv/assert"
 import { getUser } from "./user.js"
 
 const user = getUser()
-// assuming the important things to tests are only
-// name and age: create an object with only name and age
 const actual = { name: user.name, age: user.age }
 const expected = { name: "sam", age: 32 }
 assert({ actual, expected })
 ```
 
 ## Assert without property order constraint
-
-You have an object and you don't care about the object properties order.
 
 _user.js_
 
@@ -402,12 +340,11 @@ export const getUser = () => {
 _user.test.js_
 
 ```js
+// Here it is assumed that user object properties order is not important
 import { assert } from "@jsenv/assert"
 import { getUser } from "./user.js"
 
 const user = getUser()
-// assuming you don't care about properties order:
-// create an object with your own property order
 const actual = { age: user.age, name: user.name }
 const expected = { age: 32, name: "sam" }
 assert({ actual, expected })
