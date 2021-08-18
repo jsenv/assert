@@ -1,5 +1,6 @@
 import { inspect } from "@jsenv/inspect"
 import { createDetailedMessage } from "@jsenv/logger"
+
 import { comparisonToPath } from "../comparisonToPath.js"
 import { isArray } from "../object-subtype.js"
 
