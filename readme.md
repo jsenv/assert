@@ -420,7 +420,7 @@ Then use a tool like [@jsenv/importmap-node-module](https://github.com/jsenv/imp
 
 1 - _assert_ is very strict on _actual_ / _expected_ comparison
 
-It is designed like this to make test fails if something subtle changes. Any subtle change in code might break things relying on it. You need that level of precision by default to ensure your code cannot introduce regression.
+It is designed like this to make test fails if something subtle changes. Any subtle change in code might break things relying on it. You need that level of precision by default.
 
 2 - We recommend to use _assert_ to test everything
 
