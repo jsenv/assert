@@ -9,7 +9,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal strings
 --- found ---
 "\\x7F"
 --- expected ---
@@ -30,7 +30,7 @@ string found is too long, it has 1 extra character`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal strings
 --- found ---
 "\\t"
 --- expected ---
@@ -51,7 +51,7 @@ unexpected character at index 0, "\\t" was found instead of " "`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal strings
 --- found ---
 "aa"
 --- expected ---
@@ -72,7 +72,7 @@ string found is too long, it has 2 extra characters`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal strings
 --- found ---
 ""
 --- expected ---
@@ -93,7 +93,7 @@ string found is too short, 1 character is missing`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal strings
 --- found ---
 ""
 --- expected ---

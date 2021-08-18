@@ -65,13 +65,15 @@ value.foo[[Get]]`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal function names
 --- found ---
 "${actualGetter.name}"
 --- expected ---
 "${expectedGetter.name}"
 --- at ---
-value.foo[[Get]].name`,
+value.foo[[Get]].name
+--- details ---
+unexpected character at index 0, "a" was found instead of "e"`,
     )
   }
 }

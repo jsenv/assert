@@ -32,13 +32,15 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal function names
 --- found ---
 "${actual.name}"
 --- expected ---
 "${expected.name}"
 --- at ---
-value.name`,
+value.name
+--- details ---
+unexpected character at index 0, "a" was found instead of "e"`,
     )
   }
 }

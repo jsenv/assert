@@ -105,13 +105,15 @@ value.length`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal strings
 --- found ---
 "a"
 --- expected ---
 "b"
 --- at ---
-value[0]`,
+value[0]
+--- details ---
+unexpected character at index 0, "a" was found instead of "b"`,
     )
   }
 }

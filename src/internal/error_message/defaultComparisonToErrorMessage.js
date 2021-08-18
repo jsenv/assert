@@ -5,15 +5,13 @@ import { valueToString } from "../valueToString.js"
 
 export const defaultComparisonToErrorMessage = (comparison) => {
   const path = comparisonToPath(comparison)
-  const expectedValue = valueToString(comparison.expected)
-  const actualValue = valueToString(comparison.actual)
+  const { expected, actual } = comparison
+  const expectedValue = valueToString(expected)
+  const actualValue = valueToString(actual)
 
-  return createUnequalValuesMessage({ path, expectedValue, actualValue })
-}
-
-const createUnequalValuesMessage = ({ path, expectedValue, actualValue }) =>
-  createDetailedMessage(`unequal values`, {
+  return createDetailedMessage(`unequal values`, {
     found: actualValue,
     expected: expectedValue,
     at: path,
   })
+}

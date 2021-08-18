@@ -22,13 +22,15 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal regexps
 --- found ---
 "/a/"
 --- expected ---
 "/b/"
 --- at ---
-value.toString()`,
+value.toString()
+--- details ---
+unexpected character at index 1, "a" was found instead of "b"`,
     )
   }
 }
@@ -41,13 +43,15 @@ value.toString()`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values
+      `unequal regexps
 --- found ---
 "/a/"
 --- expected ---
 "/b/"
 --- at ---
-value.toString()`,
+value.toString()
+--- details ---
+unexpected character at index 1, "a" was found instead of "b"`,
     )
   }
 }

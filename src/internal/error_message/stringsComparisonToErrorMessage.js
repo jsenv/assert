@@ -2,6 +2,7 @@ import { createDetailedMessage } from "@jsenv/logger"
 
 import { comparisonToPath } from "../comparisonToPath.js"
 import { valueToString } from "../valueToString.js"
+import { isError, isRegExp } from "../object-subtype.js"
 
 export const stringsComparisonToErrorMessage = (comparison) => {
   if (comparison.type !== "identity") {
@@ -15,17 +16,58 @@ export const stringsComparisonToErrorMessage = (comparison) => {
     return undefined
   }
 
+  const description = descriptionFromComparison(comparison)
+  const foundAsString = valueToString(actual)
+  const expectedAsString = valueToString(expected)
   const path = comparisonToPath(comparison)
-  const expectedValue = valueToString(expected)
-  const actualValue = valueToString(actual)
-  const mismatchInfo = getStringMismatchInfo({ actual, expected })
+  const details = detailsFromComparison(comparison)
 
-  return createUnequalStringsMessage({
-    path,
-    expectedValue,
-    actualValue,
-    mismatchInfo,
+  return createDetailedMessage(description, {
+    found: foundAsString,
+    expected: expectedAsString,
+    at: path,
+    details,
   })
+}
+
+const descriptionFromComparison = (comparison) => {
+  if (detectRegExpToStringComparison(comparison)) {
+    return `unequal regexps`
+  }
+  if (detectErrorMessageComparison(comparison)) {
+    return `unequal error messages`
+  }
+  if (detectFunctionNameComparison(comparison)) {
+    return `unequal function names`
+  }
+  return `unequal strings`
+}
+
+const detailsFromComparison = (comparison) => {
+  const mismatchInfo = getStringMismatchInfo(comparison)
+
+  if (mismatchInfo.type === "unexpectedCharacter") {
+    const { index, expectedChar, actualChar } = mismatchInfo
+    return `unexpected character at index ${index}, ${valueToString(
+      actualChar,
+    )} was found instead of ${valueToString(expectedChar)}`
+  }
+
+  if (mismatchInfo.type === "shorterThanExpected") {
+    const { actualLength, expectedLength } = mismatchInfo
+    const missingCharacterCount = expectedLength - actualLength
+    if (missingCharacterCount === 1) {
+      return `string found is too short, 1 character is missing`
+    }
+    return `string found is too short, ${missingCharacterCount} characters are missing`
+  }
+
+  const { actualLength, expectedLength } = mismatchInfo
+  const extraCharacterCount = actualLength - expectedLength
+  if (extraCharacterCount === 1) {
+    return `string found is too long, it has 1 extra character`
+  }
+  return `string found is too long, it has ${extraCharacterCount} extra characters`
 }
 
 const getStringMismatchInfo = ({ actual, expected }) => {
@@ -70,35 +112,53 @@ const getStringMismatchInfo = ({ actual, expected }) => {
   }
 }
 
-const createUnequalStringsMessage = ({ path, expectedValue, actualValue, mismatchInfo }) =>
-  createDetailedMessage(`unequal values`, {
-    found: actualValue,
-    expected: expectedValue,
-    at: path,
-    details: createDetailsMessage(mismatchInfo),
-  })
-
-const createDetailsMessage = (mismatchInfo) => {
-  if (mismatchInfo.type === "unexpectedCharacter") {
-    const { index, expectedChar, actualChar } = mismatchInfo
-    return `unexpected character at index ${index}, ${valueToString(
-      actualChar,
-    )} was found instead of ${valueToString(expectedChar)}`
+const detectRegExpToStringComparison = (comparison) => {
+  const parentComparison = comparison.parent
+  if (parentComparison.type !== "to-string-return-value") {
+    return false
   }
 
-  if (mismatchInfo.type === "shorterThanExpected") {
-    const { actualLength, expectedLength } = mismatchInfo
-    const missingCharacterCount = expectedLength - actualLength
-    if (missingCharacterCount === 1) {
-      return `string found is too short, 1 character is missing`
-    }
-    return `string found is too short, ${missingCharacterCount} characters are missing`
+  const grandParentComparison = parentComparison.parent
+  if (!isRegExp(grandParentComparison.actual) || !isRegExp(grandParentComparison.expected)) {
+    return false
   }
 
-  const { actualLength, expectedLength } = mismatchInfo
-  const extraCharacterCount = actualLength - expectedLength
-  if (extraCharacterCount === 1) {
-    return `string found is too long, it has 1 extra character`
+  return true
+}
+
+const detectErrorMessageComparison = (comparison) => {
+  const parentComparison = comparison.parent
+  if (parentComparison.type !== "property-value") {
+    return false
   }
-  return `string found is too long, it has ${extraCharacterCount} extra characters`
+  if (parentComparison.data !== "message") {
+    return false
+  }
+
+  const grandParentComparison = parentComparison.parent
+  if (!isError(grandParentComparison.actual) || !isError(grandParentComparison.expected)) {
+    return false
+  }
+
+  return true
+}
+
+const detectFunctionNameComparison = (comparison) => {
+  const parentComparison = comparison.parent
+  if (parentComparison.type !== "property-value") {
+    return false
+  }
+  if (parentComparison.data !== "name") {
+    return false
+  }
+
+  const grandParentComparison = parentComparison.parent
+  if (
+    typeof grandParentComparison.actual !== "function" ||
+    typeof grandParentComparison.expected !== "function"
+  ) {
+    return false
+  }
+
+  return true
 }
