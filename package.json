@@ -1,7 +1,7 @@
 {
 	"name": "@jsenv/assert",
-	"version": "2.3.0",
-	"description": "Opinionated test assertion",
+	"version": "2.3.1",
+	"description": "One assertion to test everything",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

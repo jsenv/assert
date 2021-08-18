@@ -1,6 +1,6 @@
 # assert
 
-Opinionated test assertion.
+One assertion to test everything.
 
 [![npm package](https://img.shields.io/npm/v/@jsenv/assert.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/assert)
 [![github main](https://github.com/jsenv/assert/workflows/main/badge.svg)](https://github.com/jsenv/assert/actions?workflow=main)
