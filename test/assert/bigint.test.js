@@ -16,7 +16,7 @@ try {
 } catch (error) {
   ensureAssertionErrorWithMessage(
     error,
-    `unequal values.
+    `unequal values
 --- found ---
 1n
 --- expected ---

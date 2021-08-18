@@ -43,7 +43,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `found a value instead of a reference.
+    `found a value instead of a reference
 --- value found ---
 {}
 --- reference expected to ---
@@ -62,7 +62,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `found a reference instead of a value.
+    `found a reference instead of a value
 --- reference found to ---
 actual
 --- value expected ---
@@ -85,7 +85,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `found a value instead of a reference.
+    `found a value instead of a reference
 --- value found ---
 {}
 --- reference expected to ---
@@ -108,7 +108,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal references.
+    `unequal references
 --- reference found to ---
 actual
 --- reference expected to ---

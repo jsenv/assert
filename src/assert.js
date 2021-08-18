@@ -13,7 +13,7 @@ export const assert = (...args) => {
   }
 
   if (args.length > 1) {
-    throw new Error(`assert must be called with { actual, expected }, received too much arguments`)
+    throw new Error(`assert must be called with { actual, expected }, received too many arguments`)
   }
 
   const firstArg = args[0]
@@ -35,7 +35,30 @@ export const assert = (...args) => {
     )
   }
 
-  return _assert(...args)
+  const {
+    actual,
+    expected,
+    message,
+    // An other good alternative to anyOrder: true could be
+    // to have an helper like sortingProperties
+    // const value = sortProperties(value)
+    // const expected = sortProperties({ foo: true, bar: true })
+    anyOrder = false,
+  } = firstArg
+
+  const expectation = {
+    actual,
+    expected,
+  }
+
+  const comparison = compare(expectation, { anyOrder })
+  if (comparison.failed) {
+    const error = createAssertionError(message || errorMessageFromComparison(comparison))
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(error, assert)
+    }
+    throw error
+  }
 }
 
 assert.not = (value) => {
@@ -52,38 +75,4 @@ assert.matchesRegExp = (regexp) => {
     throw new TypeError(`assert.matchesRegExp must be called with a regexp, received ${regexp}`)
   }
   return createMatchesRegExpExpectation(regexp)
-}
-
-/*
- * anyOrder is not documented because ../readme.md#Why-opinionated-
- * but I feel like the property order comparison might be too strict
- * and if we cannot find a proper alternative, being able to disable it
- * might be useful
- *
- * Documentation suggest to take the object and reorder manually
- *
- * const value = { bar: true, foo: true }
- * const actual = { foo: value.foo, bar: value.bar }
- * const expected = { foo: true, bar: true }
- *
- * An other good alternative could be an helper that would sort properties
- *
- * const value = sortProperties(value)
- * const expected = sortProperties({ foo: true, bar: true })
- s*
- */
-const _assert = ({ actual, expected, message, anyOrder = false }) => {
-  const expectation = {
-    actual,
-    expected,
-  }
-
-  const comparison = compare(expectation, { anyOrder })
-  if (comparison.failed) {
-    const error = createAssertionError(message || errorMessageFromComparison(comparison))
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(error, assert)
-    }
-    throw error
-  }
 }

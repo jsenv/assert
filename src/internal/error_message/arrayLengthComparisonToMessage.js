@@ -1,5 +1,6 @@
 import { inspect } from "@jsenv/inspect"
 import { createDetailedMessage } from "@jsenv/logger"
+
 import { comparisonToPath } from "../comparisonToPath.js"
 import { isArray } from "../object-subtype.js"
 
@@ -20,7 +21,7 @@ export const arrayLengthComparisonToMessage = (comparison) => {
   if (actualLength < expectedLength) {
     const missingValues = expectedArray.slice(actualLength)
 
-    return createDetailedMessage(`an array is smaller than expected.`, {
+    return createDetailedMessage(`an array is smaller than expected`, {
       "array length found": actualLength,
       "array length expected": expectedLength,
       "missing values": inspect(missingValues),
@@ -29,7 +30,7 @@ export const arrayLengthComparisonToMessage = (comparison) => {
   }
 
   const extraValues = actualArray.slice(expectedLength)
-  return createDetailedMessage(`an array is bigger than expected.`, {
+  return createDetailedMessage(`an array is bigger than expected`, {
     "array length found": actualLength,
     "array length expected": expectedLength,
     "extra values": inspect(extraValues),

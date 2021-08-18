@@ -24,7 +24,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -41,7 +41,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `a set is smaller than expected.
+    `a set is smaller than expected
 --- set size found ---
 0
 --- set size expected ---
@@ -58,7 +58,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `a set is bigger than expected.
+    `a set is bigger than expected
 --- set size found ---
 2
 --- set size expected ---

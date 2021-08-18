@@ -25,7 +25,7 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unexpected value.
+      `unexpected value
 --- found ---
 {}
 --- expected ---
@@ -86,7 +86,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unexpected value.
+    `unexpected value
 --- found ---
 Error("")
 --- expected ---
@@ -103,7 +103,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unexpected value.
+    `unexpected value
 --- found ---
 10
 --- expected ---
@@ -124,7 +124,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unexpected value.
+    `unexpected value
 --- found ---
 true
 --- expected ---

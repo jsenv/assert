@@ -22,28 +22,28 @@ export const propertiesComparisonToErrorMessage = (comparison) => {
   })
 
   if (missingCount === 1 && extraCount === 0) {
-    return createDetailedMessage("1 missing property.", {
+    return createDetailedMessage("1 missing property", {
       "missing property": inspect(missingProperties),
       "at": path,
     })
   }
 
   if (missingCount > 1 && extraCount === 0) {
-    return createDetailedMessage(`${missingCount} missing properties.`, {
+    return createDetailedMessage(`${missingCount} missing properties`, {
       "missing properties": inspect(missingProperties),
       "at": path,
     })
   }
 
   if (missingCount === 0 && extraCount === 1) {
-    return createDetailedMessage(`1 unexpected property.`, {
+    return createDetailedMessage(`1 unexpected property`, {
       "unexpected property": inspect(unexpectedProperties),
       "at": path,
     })
   }
 
   if (missingCount === 0 && extraCount > 1) {
-    return createDetailedMessage(`${extraCount} unexpected properties.`, {
+    return createDetailedMessage(`${extraCount} unexpected properties`, {
       "unexpected properties": inspect(unexpectedProperties),
       "at": path,
     })
@@ -56,15 +56,14 @@ export const propertiesComparisonToErrorMessage = (comparison) => {
     message += `${missingCount} missing properties`
   }
   if (extraCount === 1) {
-    message += ` and 1 unexpected property.`
+    message += ` and 1 unexpected property`
   } else {
-    message += ` and ${extraCount} unexpected properties.`
+    message += ` and ${extraCount} unexpected properties`
   }
   return createDetailedMessage(message, {
     [missingCount === 1 ? "missing property" : "missing properties"]: inspect(missingProperties),
-    [extraCount === 1 ? "unexpected property" : "unexpected properties"]: inspect(
-      unexpectedProperties,
-    ),
+    [extraCount === 1 ? "unexpected property" : "unexpected properties"]:
+      inspect(unexpectedProperties),
     at: path,
   })
 }

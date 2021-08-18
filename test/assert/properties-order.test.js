@@ -27,7 +27,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unexpected properties order.
+      `unexpected properties order
 --- properties order found ---
 "foo"
 "bar"

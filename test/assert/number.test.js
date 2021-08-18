@@ -27,7 +27,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 1
 --- expected ---
@@ -46,7 +46,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 Infinity
 --- expected ---
@@ -65,7 +65,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 NaN
 --- expected ---
@@ -84,7 +84,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 -0
 --- expected ---
@@ -103,7 +103,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 0
 --- expected ---
@@ -122,7 +122,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 1
 --- expected ---

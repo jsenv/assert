@@ -42,7 +42,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `an entry is unexpected.
+    `an entry is unexpected
 --- unexpected entry key ---
 {
   "foo": true
@@ -63,7 +63,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -82,7 +82,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `an entry is unexpected.
+    `an entry is unexpected
 --- unexpected entry key ---
 "foo"
 --- unexpected entry value ---
@@ -101,7 +101,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `an entry is missing.
+    `an entry is missing
 --- missing entry key ---
 "foo"
 --- missing entry value ---

@@ -42,13 +42,15 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal error messages
 --- found ---
 "foo"
 --- expected ---
 "bar"
 --- at ---
-value.message`,
+value.message
+--- details ---
+unexpected character at index 0, "f" was found instead of "b"`,
     )
   }
 }
@@ -61,7 +63,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Error.prototype
 --- prototype expected ---
@@ -84,7 +86,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Error.prototype
 --- prototype expected ---

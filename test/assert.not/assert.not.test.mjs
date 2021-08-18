@@ -27,7 +27,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unexpected value.
+      `unexpected value
 --- found ---
 -0
 --- expected ---
@@ -46,7 +46,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unexpected value.
+      `unexpected value
 --- found ---
 42
 --- expected ---

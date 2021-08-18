@@ -36,7 +36,7 @@ const createUnexpectedReferenceMessage = ({
   path,
   expectedValue,
   unexpectedReferencePath,
-}) => `found a reference instead of a value.
+}) => `found a reference instead of a value
 --- reference found to ---
 ${unexpectedReferencePath}
 --- value expected ---
@@ -48,7 +48,7 @@ const createMissingReferenceMessage = ({
   path,
   expectedReferencePath,
   actualValue,
-}) => `found a value instead of a reference.
+}) => `found a value instead of a reference
 --- value found ---
 ${actualValue}
 --- reference expected to ---
@@ -60,7 +60,7 @@ const createUnequalRefencesMessage = ({
   path,
   expectedReferencePath,
   actualReferencePath,
-}) => `unequal references.
+}) => `unequal references
 --- reference found to ---
 ${actualReferencePath}
 --- reference expected to ---

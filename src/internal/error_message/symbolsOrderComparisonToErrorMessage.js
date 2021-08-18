@@ -19,7 +19,7 @@ const createUnexpectedSymbolsOrderMessage = ({
   path,
   expectedSymbolsOrder,
   actualSymbolsOrder,
-}) => `unexpected symbols order.
+}) => `unexpected symbols order
 --- symbols order found ---
 ${actualSymbolsOrder.join(`
 `)}

@@ -15,7 +15,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unexpected value.
+      `unexpected value
 --- found ---
 "expired n seconds ago"
 --- expected ---
