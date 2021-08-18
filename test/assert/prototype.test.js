@@ -19,7 +19,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal prototypes.
+    `unequal prototypes
 --- prototype found ---
 {
   "ancestor": true
@@ -47,7 +47,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal prototypes.
+    `unequal prototypes
 --- prototype found ---
 {
   "parentA": true
@@ -75,7 +75,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Object.prototype
 --- prototype expected ---
@@ -98,7 +98,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 null
 --- prototype expected ---
@@ -118,7 +118,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Object.prototype
 --- prototype expected ---
@@ -138,7 +138,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 expected
 --- prototype expected ---
@@ -158,7 +158,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Object.prototype
 --- prototype expected ---

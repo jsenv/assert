@@ -21,7 +21,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 undefined
 --- expected ---
@@ -44,7 +44,7 @@ value.foo[[Get]]`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 function ${get.name}() {/* hidden */}
 --- expected ---
@@ -65,7 +65,7 @@ value.foo[[Get]]`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "${actualGetter.name}"
 --- expected ---

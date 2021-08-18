@@ -16,7 +16,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -33,7 +33,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -60,7 +60,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -78,7 +78,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -96,7 +96,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---
@@ -114,7 +114,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---

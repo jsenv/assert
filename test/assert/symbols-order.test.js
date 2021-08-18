@@ -32,7 +32,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unexpected symbols order.
+      `unexpected symbols order
 --- symbols order found ---
 Symbol("b")
 Symbol("a")

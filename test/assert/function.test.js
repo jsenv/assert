@@ -32,7 +32,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "${actual.name}"
 --- expected ---

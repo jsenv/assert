@@ -8,7 +8,7 @@ export const setSizeComparisonToMessage = (comparison) => {
   return createSmallerThanExpectedMessage(comparison)
 }
 
-const createBiggerThanExpectedMessage = (comparison) => `a set is bigger than expected.
+const createBiggerThanExpectedMessage = (comparison) => `a set is bigger than expected
 --- set size found ---
 ${comparison.actual}
 --- set size expected ---
@@ -16,7 +16,7 @@ ${comparison.expected}
 --- at ---
 ${comparisonToPath(comparison.parent)}`
 
-const createSmallerThanExpectedMessage = (comparison) => `a set is smaller than expected.
+const createSmallerThanExpectedMessage = (comparison) => `a set is smaller than expected
 --- set size found ---
 ${comparison.actual}
 --- set size expected ---

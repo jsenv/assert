@@ -22,7 +22,7 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "/a/"
 --- expected ---
@@ -41,7 +41,7 @@ value.toString()`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "/a/"
 --- expected ---

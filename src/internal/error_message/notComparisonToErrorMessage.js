@@ -10,7 +10,7 @@ export const notComparisonToErrorMessage = (comparison) => {
   return createNotMessage({ path, actualValue })
 }
 
-const createNotMessage = ({ path, actualValue }) => `unexpected value.
+const createNotMessage = ({ path, actualValue }) => `unexpected value
 --- found ---
 ${actualValue}
 --- expected ---

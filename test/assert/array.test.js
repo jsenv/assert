@@ -38,7 +38,7 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `an array is smaller than expected.
+      `an array is smaller than expected
 --- array length found ---
 1
 --- array length expected ---
@@ -61,7 +61,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `an array is bigger than expected.
+      `an array is bigger than expected
 --- array length found ---
 2
 --- array length expected ---
@@ -86,7 +86,7 @@ value`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 0
 --- expected ---
@@ -105,7 +105,7 @@ value.length`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "a"
 --- expected ---
@@ -126,7 +126,7 @@ value[0]`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 true
 --- expected ---
@@ -148,7 +148,7 @@ value.foo`,
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 true
 --- expected ---
@@ -167,7 +167,7 @@ if (typeof window === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 window.Object.prototype
 --- prototype expected ---
@@ -186,7 +186,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Object.prototype
 --- prototype expected ---

@@ -9,7 +9,7 @@ export const defaultComparisonToErrorMessage = (comparison) => {
   return createUnequalValuesMessage({ path, expectedValue, actualValue })
 }
 
-const createUnequalValuesMessage = ({ path, expectedValue, actualValue }) => `unequal values.
+const createUnequalValuesMessage = ({ path, expectedValue, actualValue }) => `unequal values
 --- found ---
 ${actualValue}
 --- expected ---

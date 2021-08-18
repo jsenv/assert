@@ -27,7 +27,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unexpected symbols.
+    `unexpected symbols
 --- unexpected symbol list ---
 Symbol("a")
 --- at ---
@@ -45,7 +45,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `missing symbols.
+    `missing symbols
 --- missing symbol list ---
 Symbol("a")
 --- at ---
@@ -73,7 +73,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unexpected and missing symbols.
+    `unexpected and missing symbols
 --- unexpected symbol list ---
 Symbol("d")
 Symbol("e")

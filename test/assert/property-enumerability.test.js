@@ -16,7 +16,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 "non-enumerable"
 --- expected ---
@@ -33,7 +33,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 "enumerable"
 --- expected ---

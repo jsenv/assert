@@ -20,7 +20,7 @@ assert({ actual, expected })
 
 ```console
 > node ./docs/demo.mjs
-Error [AssertionError]: unequal values.
+Error [AssertionError]: unequal values
 --- found ---
 false
 --- expected ---
@@ -116,7 +116,7 @@ try {
 ```
 
 ```console
-AssertionError: unequal values.
+AssertionError: unequal values
 --- found ---
 10
 --- expected ---
@@ -141,7 +141,7 @@ try {
 ```
 
 ```console
-AssertionError: unequal prototypes.
+AssertionError: unequal prototypes
 --- prototype found ---
 window.TypeError.prototype
 --- prototype expected ---
@@ -166,7 +166,7 @@ try {
 ```
 
 ```console
-AssertionError: unequal values.
+AssertionError: unequal values
 --- found ---
 true
 --- expected ---
@@ -191,7 +191,7 @@ try {
 ```
 
 ```console
-AssertionError: unexpected properties order.
+AssertionError: unexpected properties order
 --- properties order found ---
 "foo"
 "bar"
@@ -218,7 +218,7 @@ try {
 ```
 
 ```console
-AssertionError: unequal values.
+AssertionError: unequal values
 --- found ---
 "non-configurable"
 --- expected ---

@@ -24,7 +24,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `1 unexpected property.
+    `1 unexpected property
 --- unexpected property ---
 {
   "a": true
@@ -44,7 +44,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `2 unexpected properties.
+    `2 unexpected properties
 --- unexpected properties ---
 {
   "a": true,
@@ -64,7 +64,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `1 missing property.
+    `1 missing property
 --- missing property ---
 {
   "a": true
@@ -84,7 +84,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `2 missing properties.
+    `2 missing properties
 --- missing properties ---
 {
   "a": true,
@@ -110,7 +110,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `2 missing properties and 2 unexpected properties.
+    `2 missing properties and 2 unexpected properties
 --- missing properties ---
 {
   "b": true,
@@ -140,7 +140,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `1 missing property and 2 unexpected properties.
+    `1 missing property and 2 unexpected properties
 --- missing property ---
 {
   "b": true
@@ -169,7 +169,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `2 missing properties and 1 unexpected property.
+    `2 missing properties and 1 unexpected property
 --- missing properties ---
 {
   "b": true,
@@ -197,7 +197,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `1 missing property and 1 unexpected property.
+    `1 missing property and 1 unexpected property
 --- missing property ---
 {
   "b": true
@@ -226,7 +226,7 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `unequal values.
+    `unequal values
 --- found ---
 true
 --- expected ---

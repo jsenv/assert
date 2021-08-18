@@ -39,7 +39,7 @@ const createUnequalPrototypesMessage = ({
   path,
   expectedPrototype,
   actualPrototype,
-}) => `unequal prototypes.
+}) => `unequal prototypes
 --- prototype found ---
 ${actualPrototype}
 --- prototype expected ---

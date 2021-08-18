@@ -19,7 +19,7 @@ const createUnexpectedPropertiesOrderMessage = ({
   path,
   expectedPropertiesOrder,
   actualPropertiesOrder,
-}) => `unexpected properties order.
+}) => `unexpected properties order
 --- properties order found ---
 ${actualPropertiesOrder.join(`
 `)}

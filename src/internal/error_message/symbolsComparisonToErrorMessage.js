@@ -25,14 +25,14 @@ export const symbolsComparisonToErrorMessage = (comparison) => {
   })
 }
 
-const createUnexpectedSymbolsMessage = ({ path, unexpectedSymbols }) => `unexpected symbols.
+const createUnexpectedSymbolsMessage = ({ path, unexpectedSymbols }) => `unexpected symbols
 --- unexpected symbol list ---
 ${unexpectedSymbols.join(`
 `)}
 --- at ---
 ${path}`
 
-const createMissingSymbolsMessage = ({ path, missingSymbols }) => `missing symbols.
+const createMissingSymbolsMessage = ({ path, missingSymbols }) => `missing symbols
 --- missing symbol list ---
 ${missingSymbols.join(`
 `)}
@@ -43,7 +43,7 @@ const createUnexpectedAndMissingSymbolsMessage = ({
   path,
   unexpectedSymbols,
   missingSymbols,
-}) => `unexpected and missing symbols.
+}) => `unexpected and missing symbols
 --- unexpected symbol list ---
 ${unexpectedSymbols.join(`
 `)}

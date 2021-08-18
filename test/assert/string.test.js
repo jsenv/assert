@@ -9,7 +9,7 @@ import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssert
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "\\x7F"
 --- expected ---

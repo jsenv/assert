@@ -42,7 +42,7 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal values.
+      `unequal values
 --- found ---
 "foo"
 --- expected ---
@@ -61,7 +61,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Error.prototype
 --- prototype expected ---
@@ -84,7 +84,7 @@ if (typeof global === "object") {
   } catch (e) {
     ensureAssertionErrorWithMessage(
       e,
-      `unequal prototypes.
+      `unequal prototypes
 --- prototype found ---
 global.Error.prototype
 --- prototype expected ---
