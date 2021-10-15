@@ -1,13 +1,16 @@
 import { buildProject, getBabelPluginMapForNode } from "@jsenv/core"
+
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
-buildProject({
+await buildProject({
   ...jsenvConfig,
   buildDirectoryRelativeUrl: "./dist/commonjs/",
   format: "commonjs",
   entryPointMap: {
     "./main.js": "./jsenv_assert.cjs",
   },
-  babelPluginMap: getBabelPluginMapForNode(),
+  runtimeSupport: {
+    node: "14.7",
+  },
   buildDirectoryClean: true,
 })

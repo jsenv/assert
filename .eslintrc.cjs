@@ -1,8 +1,6 @@
-/**
- *
+/*
  * This file uses "@jsenv/eslint-config" to configure ESLint
- * https://github.com/jsenv/jsenv-eslint-config#eslint-config
- *
+ * https://github.com/jsenv/eslint-config#eslint-config----
  */
 
 const {
@@ -16,6 +14,14 @@ const {
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
+
+  // use "@babel/eslint-parser" until top level await is supported by ESLint default parser
+  {
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      requireConfigFile: false,
+    },
+  },
 
   // Files in this repository are all meant to be executed in Node.js and browsers
   // and we want to tell this to ESLint.
@@ -38,26 +44,23 @@ const eslintConfig = composeEslintConfig(
     settings: {
       "import/resolver": {
         // Tell ESLint to use the importmap to resolve imports.
-        // Read more in https://github.com/jsenv/importmap-node-module#Configure-vscode-and-eslint-for-importmap
+        // Read more in https://github.com/jsenv/jsenv-node-module-import-map#Configure-vscode-and-eslint-for-importmap
         "@jsenv/importmap-eslint-resolver": {
           projectDirectoryUrl: __dirname,
-          importMapFileRelativeUrl: "./importmap.dev.importmap",
+          importMapFileRelativeUrl: "./node_resolution.importmap",
         },
       },
     },
     rules: jsenvEslintRulesForImport,
   },
 
-  // html plugin
+  // Enable HTML plugin
   {
     plugins: ["html"],
     settings: {
       extensions: [".html"],
     },
-  },
-
-  // .html files are written for browsers
-  {
+    // .html files are written for browsers
     overrides: [
       {
         files: ["**/*.html"],
@@ -79,18 +82,17 @@ const eslintConfig = composeEslintConfig(
           "browser": true,
           "node": true,
         },
-        settings: {
-          "import/resolver": {
-            "@jsenv/importmap-eslint-resolver": {
-              node: true,
-            },
-          },
+        globals: {
+          __filename: "off",
+          __dirname: "off",
+          require: "off",
+          exports: "off",
         },
       },
     ],
   },
 
-  // .mjs files are written for Node.js
+  // .mjs files
   {
     overrides: [
       {
@@ -99,6 +101,12 @@ const eslintConfig = composeEslintConfig(
           "shared-node-browser": false,
           "node": true,
         },
+        globals: {
+          __filename: "off",
+          __dirname: "off",
+          require: "off",
+          exports: "off",
+        },
         settings: {
           "import/resolver": {
             "@jsenv/importmap-eslint-resolver": {
@@ -110,19 +118,14 @@ const eslintConfig = composeEslintConfig(
     ],
   },
 
-  // package is "type": "module" so:
-  // 1. disable commonjs globals by default
-  // 2. Re-enable commonjs into *.cjs files
+  // .cjs files
   {
-    globals: {
-      __filename: "off",
-      __dirname: "off",
-      require: "off",
-    },
     overrides: [
       {
         files: ["**/*.cjs"],
         env: {
+          browser: false,
+          node: true,
           commonjs: true,
         },
         // inside *.cjs files. restore commonJS "globals"
@@ -130,8 +133,8 @@ const eslintConfig = composeEslintConfig(
           __filename: true,
           __dirname: true,
           require: true,
+          exports: true,
         },
-
         // inside *.cjs files, use commonjs module resolution
         settings: {
           "import/resolver": {

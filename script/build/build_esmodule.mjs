@@ -1,10 +1,11 @@
 import { buildProject } from "@jsenv/core"
+
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
-buildProject({
+await buildProject({
   ...jsenvConfig,
   buildDirectoryRelativeUrl: "./dist/esmodule/",
-  importMapFileRelativeUrl: "./importmap.prod.importmap",
+  importMapFileRelativeUrl: "./node_resolution.importmap",
   format: "esmodule",
   entryPointMap: {
     "./main.js": "./jsenv_assert.js",

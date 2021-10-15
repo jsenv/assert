@@ -1,29 +1,30 @@
 import {
   executeTestPlan,
-  launchChromiumTab,
-  launchFirefoxTab,
-  launchWebkitTab,
-  launchNode,
+  chromiumTabRuntime,
+  firefoxTabRuntime,
+  webkitTabRuntime,
+  nodeRuntime,
 } from "@jsenv/core"
+
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
-executeTestPlan({
+await executeTestPlan({
   ...jsenvConfig,
   testPlan: {
     "test/**/*.test.mjs": {
       node: {
-        launch: launchNode,
+        launch: nodeRuntime,
       },
     },
     "test/**/*.test.html": {
       chromium: {
-        launch: launchChromiumTab,
+        launch: chromiumTabRuntime,
       },
       firefox: {
-        launch: launchFirefoxTab,
+        launch: firefoxTabRuntime,
       },
       webkit: {
-        launch: launchWebkitTab,
+        launch: webkitTabRuntime,
       },
     },
   },
