@@ -115,7 +115,9 @@ _circle.js_
 ```js
 export const getCircleArea = (circleRadius) => {
   if (isNaN(circleRadius)) {
-    throw new TypeError(`circleRadius must be a number, received ${circleRadius}`)
+    throw new TypeError(
+      `circleRadius must be a number, received ${circleRadius}`,
+    )
   }
   return circleRadius * circleRadius * Math.PI
 }

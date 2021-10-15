@@ -1,17 +1,32 @@
 export const isRegExp = (value) =>
-  somePrototypeMatch(value, ({ constructor }) => constructor && constructor.name === "RegExp")
+  somePrototypeMatch(
+    value,
+    ({ constructor }) => constructor && constructor.name === "RegExp",
+  )
 
 export const isArray = (value) =>
-  somePrototypeMatch(value, ({ constructor }) => constructor && constructor.name === "Array")
+  somePrototypeMatch(
+    value,
+    ({ constructor }) => constructor && constructor.name === "Array",
+  )
 
 export const isError = (value) =>
-  somePrototypeMatch(value, ({ constructor }) => constructor && constructor.name === "Error")
+  somePrototypeMatch(
+    value,
+    ({ constructor }) => constructor && constructor.name === "Error",
+  )
 
 export const isSet = (value) =>
-  somePrototypeMatch(value, ({ constructor }) => constructor && constructor.name === "Set")
+  somePrototypeMatch(
+    value,
+    ({ constructor }) => constructor && constructor.name === "Set",
+  )
 
 export const isMap = (value) =>
-  somePrototypeMatch(value, ({ constructor }) => constructor && constructor.name === "Map")
+  somePrototypeMatch(
+    value,
+    ({ constructor }) => constructor && constructor.name === "Map",
+  )
 
 export const somePrototypeMatch = (value, predicate) => {
   let prototype = Object.getPrototypeOf(value)

@@ -61,7 +61,8 @@ export const propertiesComparisonToErrorMessage = (comparison) => {
     message += ` and ${extraCount} unexpected properties`
   }
   return createDetailedMessage(message, {
-    [missingCount === 1 ? "missing property" : "missing properties"]: inspect(missingProperties),
+    [missingCount === 1 ? "missing property" : "missing properties"]:
+      inspect(missingProperties),
     [extraCount === 1 ? "unexpected property" : "unexpected properties"]:
       inspect(unexpectedProperties),
     at: path,

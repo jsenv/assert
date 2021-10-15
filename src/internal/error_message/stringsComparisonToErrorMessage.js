@@ -119,7 +119,10 @@ const detectRegExpToStringComparison = (comparison) => {
   }
 
   const grandParentComparison = parentComparison.parent
-  if (!isRegExp(grandParentComparison.actual) || !isRegExp(grandParentComparison.expected)) {
+  if (
+    !isRegExp(grandParentComparison.actual) ||
+    !isRegExp(grandParentComparison.expected)
+  ) {
     return false
   }
 
@@ -136,7 +139,10 @@ const detectErrorMessageComparison = (comparison) => {
   }
 
   const grandParentComparison = parentComparison.parent
-  if (!isError(grandParentComparison.actual) || !isError(grandParentComparison.expected)) {
+  if (
+    !isError(grandParentComparison.actual) ||
+    !isError(grandParentComparison.expected)
+  ) {
     return false
   }
 

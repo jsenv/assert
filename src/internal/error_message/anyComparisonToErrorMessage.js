@@ -11,7 +11,11 @@ export const anyComparisonToErrorMessage = (comparison) => {
   return createAnyMessage({ path, expectedConstructor, actualValue })
 }
 
-const createAnyMessage = ({ path, expectedConstructor, actualValue }) => `unexpected value
+const createAnyMessage = ({
+  path,
+  expectedConstructor,
+  actualValue,
+}) => `unexpected value
 --- found ---
 ${actualValue}
 --- expected ---

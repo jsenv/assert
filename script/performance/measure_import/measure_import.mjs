@@ -10,7 +10,10 @@ export const measureImport = async ({ iterations = 10 } = {}) => {
   if (!global.gc) {
     throw new Error("missing --expose-gc")
   }
-  const workerFileUrl = new URL("./worker_measuring_import.mjs", import.meta.url)
+  const workerFileUrl = new URL(
+    "./worker_measuring_import.mjs",
+    import.meta.url,
+  )
   const workerFilePath = fileURLToPath(workerFileUrl)
 
   const metrics = await measurePerformanceMultipleTimes(

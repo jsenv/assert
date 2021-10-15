@@ -10,7 +10,8 @@ export const mapEntryComparisonToErrorMessage = (comparison) => {
   if (!mapEntryComparison) return null
 
   const isUnexpected = !mapEntryComparison.expected && mapEntryComparison.actual
-  if (isUnexpected) return createUnexpectedMapEntryErrorMessage(mapEntryComparison)
+  if (isUnexpected)
+    return createUnexpectedMapEntryErrorMessage(mapEntryComparison)
 
   const isMissing = mapEntryComparison.expected && !mapEntryComparison.actual
   if (isMissing) return createMissingMapEntryErrorMessage(mapEntryComparison)
@@ -18,7 +19,9 @@ export const mapEntryComparisonToErrorMessage = (comparison) => {
   return null
 }
 
-const createUnexpectedMapEntryErrorMessage = (comparison) => `an entry is unexpected
+const createUnexpectedMapEntryErrorMessage = (
+  comparison,
+) => `an entry is unexpected
 --- unexpected entry key ---
 ${valueToString(comparison.actual.key)}
 --- unexpected entry value ---

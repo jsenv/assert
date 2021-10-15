@@ -9,11 +9,15 @@ import { createAssertionError } from "./assertionError.js"
 
 export const assert = (...args) => {
   if (args.length === 0) {
-    throw new Error(`assert must be called with { actual, expected }, missing first argument`)
+    throw new Error(
+      `assert must be called with { actual, expected }, missing first argument`,
+    )
   }
 
   if (args.length > 1) {
-    throw new Error(`assert must be called with { actual, expected }, received too many arguments`)
+    throw new Error(
+      `assert must be called with { actual, expected }, received too many arguments`,
+    )
   }
 
   const firstArg = args[0]
@@ -53,7 +57,9 @@ export const assert = (...args) => {
 
   const comparison = compare(expectation, { anyOrder })
   if (comparison.failed) {
-    const error = createAssertionError(message || errorMessageFromComparison(comparison))
+    const error = createAssertionError(
+      message || errorMessageFromComparison(comparison),
+    )
     if (Error.captureStackTrace) {
       Error.captureStackTrace(error, assert)
     }
@@ -72,7 +78,9 @@ assert.any = (Constructor) => {
 assert.matchesRegExp = (regexp) => {
   const isRegExp = regexp instanceof RegExp
   if (!isRegExp) {
-    throw new TypeError(`assert.matchesRegExp must be called with a regexp, received ${regexp}`)
+    throw new TypeError(
+      `assert.matchesRegExp must be called with a regexp, received ${regexp}`,
+    )
   }
   return createMatchesRegExpExpectation(regexp)
 }

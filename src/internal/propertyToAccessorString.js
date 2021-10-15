@@ -7,7 +7,8 @@ export const propertyToAccessorString = (property) => {
     return `[${inspect(property)}]`
   }
   if (typeof property === "string") {
-    const dotNotationAllowedForProperty = propertyNameToDotNotationAllowed(property)
+    const dotNotationAllowedForProperty =
+      propertyNameToDotNotationAllowed(property)
     if (dotNotationAllowedForProperty) {
       return `.${property}`
     }
@@ -41,6 +42,9 @@ const symbolToDescription = (symbol) => {
   const toStringResult = symbol.toString()
   const openingParenthesisIndex = toStringResult.indexOf("(")
   const closingParenthesisIndex = toStringResult.indexOf(")")
-  return toStringResult.slice(openingParenthesisIndex + 1, closingParenthesisIndex)
+  return toStringResult.slice(
+    openingParenthesisIndex + 1,
+    closingParenthesisIndex,
+  )
   // return symbol.description // does not work on node
 }
