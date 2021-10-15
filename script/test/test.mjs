@@ -13,18 +13,18 @@ await executeTestPlan({
   testPlan: {
     "test/**/*.test.mjs": {
       node: {
-        launch: nodeRuntime,
+        runtime: nodeRuntime,
       },
     },
     "test/**/*.test.html": {
       chromium: {
-        launch: chromiumTabRuntime,
+        runtime: chromiumTabRuntime,
       },
       firefox: {
-        launch: firefoxTabRuntime,
+        runtime: firefoxTabRuntime,
       },
       webkit: {
-        launch: webkitTabRuntime,
+        runtime: webkitTabRuntime,
       },
     },
   },

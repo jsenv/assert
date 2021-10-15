@@ -30,7 +30,7 @@
 		"start": "node ./script/server/start_dev_server.mjs",
 		"eslint-check": "node ./node_modules/eslint/bin/eslint.js . --ext=.html,.js,.mjs,.cjs",
 		"generate-importmap": "node ./script/importmap/generate_importmap.mjs",
-		"test": "node --unhandled-rejections=strict ./script/test/test.mjs",
+		"test": "node ./script/test/test.mjs",
 		"test-with-coverage": "npm run test -- --coverage",
 		"measure-performances": "node ./script/performance/generate_performance_report.mjs --local",
 		"generate-file-size-report": "node ./script/file_size/generate_file_size_report.mjs --local",
