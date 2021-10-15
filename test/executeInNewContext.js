@@ -29,4 +29,6 @@ const executeInNewContextUsingIframe = (code) => {
 }
 
 export const executeInNewContext =
-  typeof window === "object" ? executeInNewContextUsingIframe : executeInNewContextUsingVM
+  typeof window === "object"
+    ? executeInNewContextUsingIframe
+    : executeInNewContextUsingVM

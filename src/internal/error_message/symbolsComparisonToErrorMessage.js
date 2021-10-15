@@ -11,11 +11,17 @@ export const symbolsComparisonToErrorMessage = (comparison) => {
   const hasMissing = missing.length > 0
 
   if (hasExtra && !hasMissing) {
-    return createUnexpectedSymbolsMessage({ path, unexpectedSymbols: symbolArrayToString(extra) })
+    return createUnexpectedSymbolsMessage({
+      path,
+      unexpectedSymbols: symbolArrayToString(extra),
+    })
   }
 
   if (!hasExtra && hasMissing) {
-    return createMissingSymbolsMessage({ path, missingSymbols: symbolArrayToString(missing) })
+    return createMissingSymbolsMessage({
+      path,
+      missingSymbols: symbolArrayToString(missing),
+    })
   }
 
   return createUnexpectedAndMissingSymbolsMessage({
@@ -25,14 +31,20 @@ export const symbolsComparisonToErrorMessage = (comparison) => {
   })
 }
 
-const createUnexpectedSymbolsMessage = ({ path, unexpectedSymbols }) => `unexpected symbols
+const createUnexpectedSymbolsMessage = ({
+  path,
+  unexpectedSymbols,
+}) => `unexpected symbols
 --- unexpected symbol list ---
 ${unexpectedSymbols.join(`
 `)}
 --- at ---
 ${path}`
 
-const createMissingSymbolsMessage = ({ path, missingSymbols }) => `missing symbols
+const createMissingSymbolsMessage = ({
+  path,
+  missingSymbols,
+}) => `missing symbols
 --- missing symbol list ---
 ${missingSymbols.join(`
 `)}

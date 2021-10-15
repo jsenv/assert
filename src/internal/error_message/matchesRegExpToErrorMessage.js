@@ -13,7 +13,11 @@ export const matchesRegExpToErrorMessage = (comparison) => {
   return createMatchesRegExpMessage({ path, actualValue, expectedRegexp })
 }
 
-const createMatchesRegExpMessage = ({ path, expectedRegexp, actualValue }) => `unexpected value
+const createMatchesRegExpMessage = ({
+  path,
+  expectedRegexp,
+  actualValue,
+}) => `unexpected value
 --- found ---
 ${actualValue}
 --- expected ---

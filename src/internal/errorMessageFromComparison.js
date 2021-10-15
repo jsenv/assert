@@ -34,7 +34,10 @@ export const errorMessageFromComparison = (comparison) => {
     ],
     failedComparison,
   )
-  return errorMessageFromCandidates || defaultComparisonToErrorMessage(failedComparison)
+  return (
+    errorMessageFromCandidates ||
+    defaultComparisonToErrorMessage(failedComparison)
+  )
 }
 
 const deepestComparison = (comparison) => {

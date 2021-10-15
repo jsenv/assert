@@ -1,6 +1,13 @@
 import { isPrimitive } from "./isComposite.js"
 import { findPreviousComparison } from "./findPreviousComparison.js"
-import { isSet, isMap, isRegExp, isError, isArray, somePrototypeMatch } from "./object-subtype.js"
+import {
+  isSet,
+  isMap,
+  isRegExp,
+  isError,
+  isArray,
+  somePrototypeMatch,
+} from "./object-subtype.js"
 
 export const compare = ({ actual, expected }, { anyOrder }) => {
   const comparison = createComparison({
@@ -46,7 +53,8 @@ export const createAnyExpectation = (expectedConstructor) => {
         actual,
         ({ constructor }) =>
           constructor &&
-          (constructor === expectedConstructor || constructor.name === expectedConstructor.name),
+          (constructor === expectedConstructor ||
+            constructor.name === expectedConstructor.name),
       )
     },
   })
@@ -77,7 +85,11 @@ const createComparison = ({ parent = null, children = [], ...rest }) => {
 const defaultComparer = (comparison, options) => {
   const { actual, expected } = comparison
 
-  if (typeof expected === "object" && expected !== null && expectationSymbol in expected) {
+  if (
+    typeof expected === "object" &&
+    expected !== null &&
+    expectationSymbol in expected
+  ) {
     subcompare(comparison, {
       ...expected.data,
       actual,
@@ -202,7 +214,13 @@ const subcompare = (
   comparison,
   { type, data, actual, expected, comparer = defaultComparer, options },
 ) => {
-  const subcomparison = createComparison({ type, data, actual, expected, parent: comparison })
+  const subcomparison = createComparison({
+    type,
+    data,
+    actual,
+    expected,
+    parent: comparison,
+  })
   comparison.children.push(subcomparison)
   subcomparison.failed = !comparer(subcomparison, options)
   comparison.failed = subcomparison.failed
@@ -251,8 +269,12 @@ const comparePrototype = (comparison, options) => {
 const compareExtensibility = (comparison, options) => {
   subcompare(comparison, {
     type: "extensibility",
-    actual: Object.isExtensible(comparison.actual) ? "extensible" : "non-extensible",
-    expected: Object.isExtensible(comparison.expected) ? "extensible" : "non-extensible",
+    actual: Object.isExtensible(comparison.actual)
+      ? "extensible"
+      : "non-extensible",
+    expected: Object.isExtensible(comparison.expected)
+      ? "extensible"
+      : "non-extensible",
     comparer: ({ actual, expected }) => actual === expected,
     options,
   })
@@ -305,7 +327,8 @@ const compareProperties = (comparison, options) => {
       type: "properties-order",
       actual: actualKeys,
       expected: expectedKeys,
-      comparer: () => expectedKeys.every((name, index) => name === actualKeys[index]),
+      comparer: () =>
+        expectedKeys.every((name, index) => name === actualKeys[index]),
       options,
     })
   }
@@ -316,8 +339,12 @@ const compareSymbols = (comparison, options) => {
 
   const expectedSymbols = Object.getOwnPropertySymbols(expected)
   const actualSymbols = Object.getOwnPropertySymbols(actual)
-  const actualMissing = expectedSymbols.filter((symbol) => actualSymbols.indexOf(symbol) === -1)
-  const actualExtra = actualSymbols.filter((symbol) => expectedSymbols.indexOf(symbol) === -1)
+  const actualMissing = expectedSymbols.filter(
+    (symbol) => actualSymbols.indexOf(symbol) === -1,
+  )
+  const actualExtra = actualSymbols.filter(
+    (symbol) => expectedSymbols.indexOf(symbol) === -1,
+  )
   const expectedMissing = []
   const expectedExtra = []
 
@@ -335,7 +362,10 @@ const compareSymbols = (comparison, options) => {
       type: "symbols-order",
       actual: actualSymbols,
       expected: expectedSymbols,
-      comparer: () => expectedSymbols.every((symbol, index) => symbol === actualSymbols[index]),
+      comparer: () =>
+        expectedSymbols.every(
+          (symbol, index) => symbol === actualSymbols[index],
+        ),
       options,
     })
   }
@@ -346,7 +376,12 @@ const comparePropertiesDescriptors = (comparison, options) => {
   const expectedPropertyNames = Object.getOwnPropertyNames(expected)
   // eslint-disable-next-line no-unused-vars
   for (const expectedPropertyName of expectedPropertyNames) {
-    comparePropertyDescriptor(comparison, expectedPropertyName, expected, options)
+    comparePropertyDescriptor(
+      comparison,
+      expectedPropertyName,
+      expected,
+      options,
+    )
     if (comparison.failed) break
   }
 }
@@ -372,7 +407,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     type: "property-configurable",
     data: property,
     actual: actualDescriptor.configurable ? "configurable" : "non-configurable",
-    expected: expectedDescriptor.configurable ? "configurable" : "non-configurable",
+    expected: expectedDescriptor.configurable
+      ? "configurable"
+      : "non-configurable",
     comparer: ({ actual, expected }) => actual === expected,
     options,
   })
@@ -441,7 +478,8 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
 
 const isRegExpPropertyIgnored = (name) => RegExpIgnoredProperties.includes(name)
 
-const isFunctionPropertyIgnored = (name) => functionIgnoredProperties.includes(name)
+const isFunctionPropertyIgnored = (name) =>
+  functionIgnoredProperties.includes(name)
 
 const isErrorPropertyIgnored = (name) => errorIgnoredProperties.includes(name)
 
@@ -543,21 +581,26 @@ const compareMapEntries = (comparison, options) => {
   const expectedEntryCandidates = expectedEntries.slice()
 
   actualEntries.forEach((actualEntry) => {
-    const expectedEntry = expectedEntryCandidates.find((expectedEntryCandidate) => {
-      const mappingComparison = subcompare(comparison, {
-        type: "map-entry-key-mapping",
-        actual: actualEntry.key,
-        expected: expectedEntryCandidate.key,
-        options,
-      })
-      if (mappingComparison.failed) {
-        comparison.failed = false
-        return false
-      }
-      return true
-    })
+    const expectedEntry = expectedEntryCandidates.find(
+      (expectedEntryCandidate) => {
+        const mappingComparison = subcompare(comparison, {
+          type: "map-entry-key-mapping",
+          actual: actualEntry.key,
+          expected: expectedEntryCandidate.key,
+          options,
+        })
+        if (mappingComparison.failed) {
+          comparison.failed = false
+          return false
+        }
+        return true
+      },
+    )
     if (expectedEntry)
-      expectedEntryCandidates.splice(expectedEntryCandidates.indexOf(expectedEntry), 1)
+      expectedEntryCandidates.splice(
+        expectedEntryCandidates.indexOf(expectedEntry),
+        1,
+      )
     entryMapping.push({ actualEntry, expectedEntry })
   })
 
@@ -571,7 +614,9 @@ const compareMapEntries = (comparison, options) => {
   let index = 0
   // eslint-disable-next-line no-unused-vars
   for (const actualEntry of actualEntries) {
-    const actualEntryMapping = entryMapping.find((mapping) => mapping.actualEntry === actualEntry)
+    const actualEntryMapping = entryMapping.find(
+      (mapping) => mapping.actualEntry === actualEntry,
+    )
     if (actualEntryMapping && actualEntryMapping.expectedEntry) {
       const mapEntryComparison = subcompare(comparison, {
         type: "map-entry",
@@ -601,8 +646,9 @@ const compareMapEntries = (comparison, options) => {
   if (unexpectedEntryComparison.failed) return
 
   // third check there is no missing entry (expected but not found)
-  const expectedEntryWithoutActualEntry = expectedEntries.find((expectedEntry) =>
-    entryMapping.every((mapping) => mapping.expectedEntry !== expectedEntry),
+  const expectedEntryWithoutActualEntry = expectedEntries.find(
+    (expectedEntry) =>
+      entryMapping.every((mapping) => mapping.expectedEntry !== expectedEntry),
   )
   const missingEntry = expectedEntryWithoutActualEntry || null
   const missingEntryComparison = subcompare(comparison, {

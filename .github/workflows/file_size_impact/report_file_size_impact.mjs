@@ -1,8 +1,12 @@
-import { reportFileSizeImpact, readGitHubWorkflowEnv } from "@jsenv/file-size-impact"
+import {
+  reportFileSizeImpact,
+  readGitHubWorkflowEnv,
+} from "@jsenv/file-size-impact"
 
-reportFileSizeImpact({
+await reportFileSizeImpact({
   ...readGitHubWorkflowEnv(),
   logLevel: "debug",
   buildCommand: "npm run dist",
-  moduleGeneratingFileSizeReportRelativeUrl: "./script/file_size/generate_file_size_report.mjs",
+  moduleGeneratingFileSizeReportRelativeUrl:
+    "./script/file_size/generate_file_size_report.mjs",
 })

@@ -7,7 +7,8 @@ export const valueToWellKnown = (value) => {
     return compositeWellKnownPath
       .slice(1)
       .reduce(
-        (previous, property) => `${previous}${propertyToAccessorString(property)}`,
+        (previous, property) =>
+          `${previous}${propertyToAccessorString(property)}`,
         compositeWellKnownPath[0],
       )
   }
@@ -58,7 +59,9 @@ export const addWellKnownComposite = (value, name) => {
     }
 
     Object.getOwnPropertyNames(value).forEach((name) => visitProperty(name))
-    Object.getOwnPropertySymbols(value).forEach((symbol) => visitProperty(symbol))
+    Object.getOwnPropertySymbols(value).forEach((symbol) =>
+      visitProperty(symbol),
+    )
   }
 
   visitValue(value, [name])

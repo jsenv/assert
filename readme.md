@@ -115,7 +115,9 @@ _circle.js_
 ```js
 export const getCircleArea = (circleRadius) => {
   if (isNaN(circleRadius)) {
-    throw new TypeError(`circleRadius must be a number, received ${circleRadius}`)
+    throw new TypeError(
+      `circleRadius must be a number, received ${circleRadius}`,
+    )
   }
   return circleRadius * circleRadius * Math.PI
 }
@@ -393,14 +395,27 @@ For a local installation, you can use npm
 npm i --save-dev @jsenv/assert
 ```
 
-Then use a tool like [@jsenv/importmap-node-module](https://github.com/jsenv/importmap-node-module) to generate _importmap.importmap_ and use it in your HTML file.
+Then use an importmap in your HTML file.
 
 ```html
-<script type="importmap" src="./importmap.importmap"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "@jsenv/assert": "./node_modules/@jsenv/assert/main.js"
+    }
+  }
+</script>
 <script type="module">
   import { assert } from "@jsenv/assert"
+
+  assert({
+    actual: true,
+    expected: false,
+  })
 </script>
 ```
+
+You can use [@jsenv/importmap-node-module](https://github.com/jsenv/importmap-node-module) to generate the importmap.
 
 # Playground
 
