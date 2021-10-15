@@ -32,7 +32,7 @@
 		"generate-importmap": "node ./script/importmap/generate_importmap.mjs",
 		"test": "node ./script/test/test.mjs",
 		"test-with-coverage": "npm run test -- --coverage",
-		"measure-performances": "node ./script/performance/generate_performance_report.mjs --local",
+		"measure-performances": "node --expose-gc ./script/performance/generate_performance_report.mjs --local",
 		"generate-file-size-report": "node ./script/file_size/generate_file_size_report.mjs --local",
 		"dist": "npm run build-esmodule && npm run build-commonjs && npm run build-global",
 		"build-esmodule": "node ./script/build/build_esmodule.mjs",
