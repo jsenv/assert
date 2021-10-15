@@ -1,4 +1,3 @@
-/* globals BigInt */
 import { assert } from "@jsenv/assert"
 import { ensureAssertionErrorWithMessage } from "@jsenv/assert/test/ensureAssertionErrorWithMessage.js"
 
