@@ -6,10 +6,10 @@ import {
   nodeRuntime,
 } from "@jsenv/core"
 
-import * as jsenvConfig from "../../jsenv.config.mjs"
+import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
 await executeTestPlan({
-  ...jsenvConfig,
+  projectDirectoryUrl,
   testPlan: {
     "test/**/*.test.mjs": {
       node: {
