@@ -1,9 +1,9 @@
 import { buildProject } from "@jsenv/core"
 
-import * as jsenvConfig from "../../jsenv.config.mjs"
+import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
 await buildProject({
-  ...jsenvConfig,
+  projectDirectoryUrl,
   buildDirectoryRelativeUrl: "./dist/global/",
   importMapFileRelativeUrl: "./node_resolution.importmap",
   format: "global",

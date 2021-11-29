@@ -2,35 +2,39 @@
 # see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 #
 # For every push on a pull request, it
-# - starts a machine on ubuntu
-# - clone the git repository
-# - install node, install npm deps
-# - Executes report_size_impact.mjs
+# - creates or updates a comment about potential pr impact on several files size
+# Read more in
+# - https://github.com/jsenv/file-size-impact
+#
+# If you want to update this file it's recommended to use a YAML validator
+# https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+# configured to validate with https://json.schemastore.org/github-workflow.json
 
 name: file size impact
 
 on: pull_request
 
 jobs:
-  file-size-impact:
-    # Explicit OS version (ubuntu-20.04 instead of ubuntu-latest)
-    # to make build more predictable
-    runs-on: ubuntu-20.04
-    name: size impact
+  pr-impact:
+    strategy:
+      matrix:
+        # To make build more predictable:
+        # - explicit OS version ("ubuntu-20.04" instead of "ubuntu-latest")
+        # - Explicit node version ("16.6.1" instead of "lts")
+        os: [ubuntu-20.04]
+        node: [16.6.1]
+    runs-on: ${{ matrix.os }}
+    name: pr impact
     steps:
       - name: Setup git
-        # "checkout@v2" documentation available at https://github.com/actions/checkout
         uses: actions/checkout@v2
-      - name: Setup node
-        # "setup-node@v1" documentation available at https://github.com/actions/setup-node
+      - name: Setup node ${{ matrix.node }}
         uses: actions/setup-node@v1
         with:
-          # Explicit node version ("16.6.1" instead of "lts")
-          # to make build more predictable
-          node-version: "16.6.1"
+          node-version: ${{ matrix.node }}
       - name: Setup npm
         run: npm install
       - name: Report file size impact
-        run: node ./.github/workflows/file_size_impact/report_file_size_impact.mjs
+        run: node ./.github/workflows/pr_impact/report_file_size_impact.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
