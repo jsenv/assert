@@ -38,9 +38,9 @@
 		"build-esmodule": "node ./script/build/build_esmodule.mjs",
 		"build-commonjs": "node --experimental-import-meta-resolve ./script/build/build_commonjs.mjs",
 		"build-global": "node ./script/build/build_global.mjs",
-	  "prettier": "prettier --write .",
+		"prettier": "prettier --write .",
 		"playwright-install": "npx playwright install-deps && npx playwright install",
-		"postinstall": "npm run generate-importmap && npm run playwright-install",
+		"postinstall": "npm run importmap && npm run playwright-install",
 		"prepublishOnly": "node ./script/publish/remove_postinstall.mjs && npm run dist",
 		"postpublish": "node ./script/publish/restore_postinstall.mjs"
 	},
@@ -49,9 +49,9 @@
 		"@jsenv/logger": "4.0.1"
 	},
 	"devDependencies": {
-	  "@jsenv/babel-preset": "1.1.1",
+		"@jsenv/babel-preset": "1.1.1",
 		"@jsenv/codecov-upload": "3.5.0",
-		"@jsenv/core": "24.3.2",
+		"@jsenv/core": "24.3.3",
 		"@jsenv/eslint-config": "16.0.9",
 		"@jsenv/file-size-impact": "12.1.1",
 		"@jsenv/github-release-package": "1.2.3",
@@ -62,6 +62,7 @@
 		"eslint": "8.3.0",
 		"eslint-plugin-html": "6.2.0",
 		"eslint-plugin-import": "2.25.3",
+		"playwright": "1.16.3",
 		"prettier": "2.5.0"
 	}
 }
