@@ -1,68 +1,68 @@
 {
-	"name": "@jsenv/assert",
-	"version": "2.4.0",
-	"description": "One assertion to test everything",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/jsenv/assert"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"engines": {
-		"node": ">=16.12.0"
-	},
-	"type": "module",
-	"exports": {
-		".": {
-			"import": "./main.js",
-			"require": "./dist/commonjs/jsenv_assert.cjs"
-		},
-		"./*": "./*"
-	},
-	"files": [
-		"/dist/",
-		"/src/",
-		"/main.js"
-	],
-	"scripts": {
-		"dev": "node ./script/dev/start_dev_server.mjs",
-		"eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.html,.js,.mjs,.cjs",
-		"importmap": "node ./script/importmap/generate_importmap.mjs",
-		"test": "node ./script/test/test.mjs",
-		"test-with-coverage": "npm run test -- --coverage",
-		"performances": "node --expose-gc ./script/performance/performance.mjs --log",
-		"file-size": "node ./script/file_size/file_size.mjs --log",
-		"dist": "npm run build-esmodule && npm run build-commonjs && npm run build-global",
-		"build-esmodule": "node ./script/build/build_esmodule.mjs",
-		"build-commonjs": "node --experimental-import-meta-resolve ./script/build/build_commonjs.mjs",
-		"build-global": "node ./script/build/build_global.mjs",
-		"prettier": "prettier --write .",
-		"playwright-install": "npx playwright install-deps && npx playwright install",
-		"postinstall": "npm run importmap && npm run playwright-install",
-		"prepublishOnly": "node ./script/publish/remove_postinstall.mjs && npm run dist",
-		"postpublish": "node ./script/publish/restore_postinstall.mjs"
-	},
-	"dependencies": {
-		"@jsenv/inspect": "1.6.0",
-		"@jsenv/logger": "4.0.1"
-	},
-	"devDependencies": {
-		"@jsenv/babel-preset": "1.1.1",
-		"@jsenv/codecov-upload": "3.5.0",
-		"@jsenv/core": "24.3.3",
-		"@jsenv/eslint-config": "16.0.9",
-		"@jsenv/file-size-impact": "12.1.1",
-		"@jsenv/github-release-package": "1.2.3",
-		"@jsenv/importmap-eslint-resolver": "5.2.1",
-		"@jsenv/importmap-node-module": "2.8.0",
-		"@jsenv/package-publish": "1.6.2",
-		"@jsenv/performance-impact": "2.2.1",
-		"eslint": "8.3.0",
-		"eslint-plugin-html": "6.2.0",
-		"eslint-plugin-import": "2.25.3",
-		"playwright": "1.16.3",
-		"prettier": "2.5.0"
-	}
+  "name": "@jsenv/assert",
+  "version": "2.4.0",
+  "description": "One assertion to test everything",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsenv/assert"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=16.12.0"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./main.js",
+      "require": "./dist/commonjs/jsenv_assert.cjs"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "/dist/",
+    "/src/",
+    "/main.js"
+  ],
+  "scripts": {
+    "dev": "node ./script/dev/start_dev_server.mjs",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.html,.js,.mjs,.cjs",
+    "importmap": "node ./script/importmap/generate_importmap.mjs",
+    "test": "node ./script/test/test.mjs",
+    "test-with-coverage": "npm run test -- --coverage",
+    "performances": "node --expose-gc ./script/performance/performance.mjs --log",
+    "file-size": "node ./script/file_size/file_size.mjs --log",
+    "dist": "npm run build-esmodule && npm run build-commonjs && npm run build-global",
+    "build-esmodule": "node ./script/build/build_esmodule.mjs",
+    "build-commonjs": "node --experimental-import-meta-resolve ./script/build/build_commonjs.mjs",
+    "build-global": "node ./script/build/build_global.mjs",
+    "prettier": "prettier --write .",
+    "playwright-install": "npx playwright install-deps && npx playwright install",
+    "postinstall": "npm run importmap && npm run playwright-install",
+    "prepublishOnly": "node ./script/publish/remove_postinstall.mjs && npm run dist",
+    "postpublish": "node ./script/publish/restore_postinstall.mjs"
+  },
+  "dependencies": {
+    "@jsenv/inspect": "1.6.0",
+    "@jsenv/logger": "4.0.1"
+  },
+  "devDependencies": {
+    "@jsenv/babel-preset": "1.1.1",
+    "@jsenv/codecov-upload": "3.5.0",
+    "@jsenv/core": "24.4.1",
+    "@jsenv/eslint-config": "16.0.9",
+    "@jsenv/file-size-impact": "12.1.1",
+    "@jsenv/github-release-package": "1.2.3",
+    "@jsenv/importmap-eslint-resolver": "5.2.1",
+    "@jsenv/importmap-node-module": "2.8.0",
+    "@jsenv/package-publish": "1.6.2",
+    "@jsenv/performance-impact": "2.2.1",
+    "eslint": "8.3.0",
+    "eslint-plugin-html": "6.2.0",
+    "eslint-plugin-import": "2.25.3",
+    "playwright": "1.16.3",
+    "prettier": "2.5.0"
+  }
 }

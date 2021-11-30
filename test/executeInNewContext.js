@@ -1,6 +1,6 @@
 const executeInNewContextUsingVM = async (code) => {
   // eslint-disable-next-line import/no-unresolved
-  const { runInNewContext } = await import("node:vm")
+  const { runInNewContext } = await import("vm")
   return runInNewContext(code)
 }
 
