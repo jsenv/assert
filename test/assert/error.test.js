@@ -17,22 +17,12 @@ import { executeInNewContext } from "@jsenv/assert/test/executeInNewContext.js"
 {
   const actual = await executeInNewContext("new Error()")
   const expected = new Error()
-  // webkit adds this property for error coming from iframe
-  if (actual.sourceURL) {
-    delete actual.sourceURL
-    delete expected.sourceURL
-  }
   assert({ actual, expected })
 }
 
 {
   const actual = new Error()
   const expected = await executeInNewContext("new Error()")
-  // webkit adds this property for error coming from iframe
-  if (expected.sourceURL) {
-    delete actual.sourceURL
-    delete expected.sourceURL
-  }
   assert({ actual, expected })
 }
 

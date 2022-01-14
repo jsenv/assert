@@ -518,6 +518,7 @@ const errorIgnoredProperties = [
   // webkit properties that would fail comparison but that's expected
   "line",
   "column",
+  "sourceURL",
 ]
 
 const propertyToArrayIndex = (property) => {
