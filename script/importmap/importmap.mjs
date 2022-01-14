@@ -13,9 +13,11 @@ await writeImportMapFiles({
   projectDirectoryUrl,
   importMapFiles: {
     "./node_resolution.importmap": {
+      runtime: "browser",
       mappingsForNodeResolution: true,
       mappingsForDevDependencies: true,
       useForJsConfigJSON: true,
     },
   },
+  exportsFieldWarningConfig: { dependencies: true },
 })

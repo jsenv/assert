@@ -11,7 +11,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=16.12.0"
+    "node": ">=16.13.0"
   },
   "type": "module",
   "exports": {
@@ -28,9 +28,9 @@
     "/main.js"
   ],
   "scripts": {
-    "dev": "node ./script/dev/start_dev_server.mjs",
+    "dev": "node ./script/dev/dev.mjs",
     "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.html,.js,.mjs,.cjs",
-    "importmap": "node ./script/importmap/generate_importmap.mjs",
+    "importmap": "node ./script/importmap/importmap.mjs",
     "test": "node ./script/test/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
     "performances": "node --expose-gc ./script/performance/performance.mjs --log",
@@ -41,29 +41,27 @@
     "build-global": "node ./script/build/build_global.mjs",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "postinstall": "npm run importmap && npm run playwright-install",
-    "prepublishOnly": "node ./script/publish/remove_postinstall.mjs && npm run dist",
-    "postpublish": "node ./script/publish/restore_postinstall.mjs"
+    "prepublishOnly": "npm run dist"
   },
   "dependencies": {
     "@jsenv/inspect": "1.6.0",
     "@jsenv/logger": "4.0.1"
   },
   "devDependencies": {
-    "@jsenv/babel-preset": "1.1.1",
+    "@jsenv/babel-preset": "1.1.2",
     "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "24.4.1",
+    "@jsenv/core": "25.1.1",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/file-size-impact": "12.1.1",
     "@jsenv/github-release-package": "1.2.3",
-    "@jsenv/importmap-eslint-resolver": "5.2.1",
-    "@jsenv/importmap-node-module": "2.8.0",
+    "@jsenv/importmap-eslint-resolver": "5.2.2",
+    "@jsenv/importmap-node-module": "5.1.0",
     "@jsenv/package-publish": "1.6.2",
     "@jsenv/performance-impact": "2.2.1",
-    "eslint": "8.3.0",
+    "eslint": "8.6.0",
     "eslint-plugin-html": "6.2.0",
-    "eslint-plugin-import": "2.25.3",
-    "playwright": "1.16.3",
-    "prettier": "2.5.0"
+    "eslint-plugin-import": "2.25.4",
+    "playwright": "1.17.2",
+    "prettier": "2.5.1"
   }
 }
