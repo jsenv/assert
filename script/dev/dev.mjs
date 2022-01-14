@@ -11,4 +11,8 @@ await startDevServer({
       "test/**/*.html": true,
     },
   },
+  runtimeSupportDuringDev: {
+    chrome: "97",
+    firefox: "80",
+  },
 })

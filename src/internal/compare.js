@@ -158,38 +158,58 @@ const defaultComparer = (comparison, options) => {
 
   compareIdentity(comparison, options)
   // actual === expected, no need to compare prototype, properties, ...
-  if (!comparison.failed) return true
+  if (!comparison.failed) {
+    return true
+  }
   comparison.failed = false
 
   comparePrototype(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   compareIntegrity(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   compareExtensibility(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   comparePropertiesDescriptors(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   compareProperties(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   compareSymbolsDescriptors(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   compareSymbols(comparison, options)
-  if (comparison.failed) return false
+  if (comparison.failed) {
+    return false
+  }
 
   if (typeof Set === "function" && isSet(expected)) {
     compareSetEntries(comparison, options)
-    if (comparison.failed) return false
+    if (comparison.failed) {
+      return false
+    }
   }
 
   if (typeof Map === "function" && isMap(expected)) {
     compareMapEntries(comparison, options)
-    if (comparison.failed) return false
+    if (comparison.failed) {
+      return false
+    }
   }
 
   if ("valueOf" in expected && typeof expected.valueOf === "function") {
@@ -198,13 +218,17 @@ const defaultComparer = (comparison, options) => {
     // usefull because new Date(10).valueOf() === 10
     // or new Boolean(true).valueOf() === true
     compareValueOfReturnValue(comparison, options)
-    if (comparison.failed) return false
+    if (comparison.failed) {
+      return false
+    }
   }
 
   // required otherwise assert({ actual: /a/, expected: /b/ }) would not throw
   if (isRegExp(expected)) {
     compareToStringReturnValue(comparison, options)
-    if (comparison.failed) return false
+    if (comparison.failed) {
+      return false
+    }
   }
 
   return true
@@ -300,17 +324,21 @@ const getIntegriy = (value) => {
 const compareProperties = (comparison, options) => {
   const { actual, expected } = comparison
 
+  const isErrorConstructor =
+    typeof actual === "function" && actual.name === "Error"
+  const ignoredProperties = isErrorConstructor ? ["prepareStackTrace"] : []
   const expectedPropertyNames = Object.getOwnPropertyNames(expected)
   const actualPropertyNames = Object.getOwnPropertyNames(actual)
-  const actualMissing = expectedPropertyNames.filter(
-    (name) => actualPropertyNames.indexOf(name) === -1,
-  )
-  const actualExtra = actualPropertyNames.filter(
-    (name) => expectedPropertyNames.indexOf(name) === -1,
-  )
+  const actualMissing = expectedPropertyNames.filter((name) => {
+    const missing = actualPropertyNames.indexOf(name) === -1
+    return missing && ignoredProperties.indexOf(name) === -1
+  })
+  const actualExtra = actualPropertyNames.filter((name) => {
+    const extra = expectedPropertyNames.indexOf(name) === -1
+    return extra && ignoredProperties.indexOf(name) === -1
+  })
   const expectedMissing = []
   const expectedExtra = []
-
   subcompare(comparison, {
     type: "properties",
     actual: { missing: actualMissing, extra: actualExtra },
@@ -318,9 +346,11 @@ const compareProperties = (comparison, options) => {
     comparer: () => actualMissing.length === 0 && actualExtra.length === 0,
     options,
   })
-  if (comparison.failed) return
+  if (comparison.failed) {
+    return
+  }
 
-  if (!options.anyOrder) {
+  if (!options.anyOrder && !isErrorConstructor) {
     const expectedKeys = Object.keys(expected)
     const actualKeys = Object.keys(actual)
     subcompare(comparison, {
@@ -401,7 +431,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
 
   const expectedDescriptor = Object.getOwnPropertyDescriptor(expected, property)
   const actualDescriptor = Object.getOwnPropertyDescriptor(actual, property)
-  if (!actualDescriptor) return
+  if (!actualDescriptor) {
+    return
+  }
 
   const configurableComparison = subcompare(comparison, {
     type: "property-configurable",
@@ -413,7 +445,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     comparer: ({ actual, expected }) => actual === expected,
     options,
   })
-  if (configurableComparison.failed) return
+  if (configurableComparison.failed) {
+    return
+  }
 
   const enumerableComparison = subcompare(comparison, {
     type: "property-enumerable",
@@ -423,7 +457,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     comparer: ({ actual, expected }) => actual === expected,
     options,
   })
-  if (enumerableComparison.failed) return
+  if (enumerableComparison.failed) {
+    return
+  }
 
   const writableComparison = subcompare(comparison, {
     type: "property-writable",
@@ -433,7 +469,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     comparer: ({ actual, expected }) => actual === expected,
     options,
   })
-  if (writableComparison.failed) return
+  if (writableComparison.failed) {
+    return
+  }
 
   if (isError(owner) && isErrorPropertyIgnored(property)) {
     return
@@ -455,7 +493,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     expected: expectedDescriptor.get,
     options,
   })
-  if (getComparison.failed) return
+  if (getComparison.failed) {
+    return
+  }
 
   const setComparison = subcompare(comparison, {
     type: "property-set",
@@ -464,7 +504,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     expected: expectedDescriptor.set,
     options,
   })
-  if (setComparison.failed) return
+  if (setComparison.failed) {
+    return
+  }
 
   const valueComparison = subcompare(comparison, {
     type: "property-value",
@@ -473,7 +515,9 @@ const comparePropertyDescriptor = (comparison, property, owner, options) => {
     expected: expectedDescriptor.value,
     options,
   })
-  if (valueComparison.failed) return
+  if (valueComparison.failed) {
+    return
+  }
 }
 
 const isRegExpPropertyIgnored = (name) => RegExpIgnoredProperties.includes(name)
