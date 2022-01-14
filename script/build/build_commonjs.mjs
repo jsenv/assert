@@ -6,8 +6,8 @@ await buildProject({
   projectDirectoryUrl,
   buildDirectoryRelativeUrl: "./dist/commonjs/",
   format: "commonjs",
-  entryPointMap: {
-    "./main.js": "./jsenv_assert.cjs",
+  entryPoints: {
+    "./main.js": "jsenv_assert.cjs",
   },
   runtimeSupport: {
     node: "14.7",

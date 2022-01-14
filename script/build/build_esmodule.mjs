@@ -7,8 +7,8 @@ await buildProject({
   buildDirectoryRelativeUrl: "./dist/esmodule/",
   importMapFileRelativeUrl: "./node_resolution.importmap",
   format: "esmodule",
-  entryPointMap: {
-    "./main.js": "./jsenv_assert.js",
+  entryPoints: {
+    "./main.js": "jsenv_assert.js",
   },
   buildDirectoryClean: true,
 })
