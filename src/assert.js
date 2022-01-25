@@ -84,3 +84,9 @@ assert.matchesRegExp = (regexp) => {
   }
   return createMatchesRegExpExpectation(regexp)
 }
+
+assert.asObjectWithoutPrototype = (object) => {
+  const objectWithoutPrototype = Object.create(null)
+  Object.assign(objectWithoutPrototype, object)
+  return objectWithoutPrototype
+}

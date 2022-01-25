@@ -36,3 +36,5 @@
 # be published to the GitHub repository.
 # On my machine this file contains secret tokens such as CODECOV_TOKEN and NPM_TOKEN
 /secrets.json
+
+.DS_STORE
