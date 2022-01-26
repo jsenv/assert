@@ -1,4 +1,3 @@
-/* eslint-disable import/max-dependencies */
 import "./array.test.js"
 import "./assert.test.js"
 import "./big.test.js"

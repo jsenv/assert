@@ -28,5 +28,6 @@ await executeTestPlan({
       },
     },
   },
+  completedExecutionLogMerging: true,
   coverageV8ConflictWarning: false,
 })
