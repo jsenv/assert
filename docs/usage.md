@@ -70,7 +70,7 @@ npm i --save-dev @jsenv/assert
 This part contains a few recommendations on how to write tests using _@jsenv/assert_.
 These guidelines should help to write consistent tests and see how _@jsenv/assert_ is meant to be used.
 
-First let's talk shortly about the AAA pattern, then several partical examples.
+After an introduction on the AAA pattern, several practical examples are shown.
 
 ### The AAA pattern
 
