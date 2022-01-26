@@ -67,6 +67,8 @@ jobs:
           node-version: "16.13.0"
       - name: Install node modules
         run: npm install
+      - name: Generate importmap # used by the build
+        run: npm run importmap
       - name: Publish package
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
