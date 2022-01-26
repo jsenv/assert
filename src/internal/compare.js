@@ -9,13 +9,13 @@ import {
   somePrototypeMatch,
 } from "./object-subtype.js"
 
-export const compare = ({ actual, expected }, { anyOrder }) => {
+export const compare = ({ actual, expected }, { checkPropertiesOrder }) => {
   const comparison = createComparison({
     type: "root",
     actual,
     expected,
   })
-  comparison.failed = !defaultComparer(comparison, { anyOrder })
+  comparison.failed = !defaultComparer(comparison, { checkPropertiesOrder })
   return comparison
 }
 
@@ -350,7 +350,7 @@ const compareProperties = (comparison, options) => {
     return
   }
 
-  if (!options.anyOrder && !isErrorConstructor) {
+  if (options.checkPropertiesOrder && !isErrorConstructor) {
     const expectedKeys = Object.keys(expected)
     const actualKeys = Object.keys(actual)
     subcompare(comparison, {
@@ -387,7 +387,7 @@ const compareSymbols = (comparison, options) => {
   })
   if (comparison.failed) return
 
-  if (!options.anyOrder) {
+  if (options.checkPropertiesOrder) {
     subcompare(comparison, {
       type: "symbols-order",
       actual: actualSymbols,

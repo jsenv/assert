@@ -43,11 +43,11 @@ export const assert = (...args) => {
     actual,
     expected,
     message,
-    // An other good alternative to anyOrder: true could be
+    // An other good alternative to "checkPropertiesOrder" could be
     // to have an helper like sortingProperties
-    // const value = sortProperties(value)
-    // const expected = sortProperties({ foo: true, bar: true })
-    anyOrder = false,
+    // const value = assert.sortProperties(value)
+    // const expected = assert.sortProperties({ foo: true, bar: true })
+    checkPropertiesOrder = true,
   } = firstArg
 
   const expectation = {
@@ -55,7 +55,7 @@ export const assert = (...args) => {
     expected,
   }
 
-  const comparison = compare(expectation, { anyOrder })
+  const comparison = compare(expectation, { checkPropertiesOrder })
   if (comparison.failed) {
     const error = createAssertionError(
       message || errorMessageFromComparison(comparison),
