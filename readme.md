@@ -1,6 +1,6 @@
 # assert [![npm package](https://img.shields.io/npm/v/@jsenv/assert.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/assert) [![github main](https://github.com/jsenv/assert/workflows/main/badge.svg)](https://github.com/jsenv/assert/actions?workflow=main) [![codecov coverage](https://codecov.io/gh/jsenv/assert/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenv/assert)
 
-`@jsenv/assert` compare two values with extreme accuracy. If values differ, an error is thrown with a readable message. It helps you to know if the _actual_ value produced in a test matches what you _expected_.
+_@jsenv/assert_ is a NPM package used to write assertion during tests. It compare two values with extreme accuracy. If values differs, an error is thrown with a readable message. It helps you to know if the _actual_ value produced in a test matches what you _expected_.
 
 ```js
 import { assert } from "@jsenv/assert"
@@ -21,6 +21,30 @@ true
 --- at ---
 value.foo
 ```
+
+# Philosophy
+
+1 - Very strict comparison between _actual_ and _expected_:
+
+It is designed like this to make test fails if something subtle changes. Any subtle change in code might break things relying on it. You need that level of precision by default.
+
+2 - We recommend to use _assert_ to test everything:
+
+_assert_ can be the only assertion used to write tests. It mostly prevents [bikeshedding](https://en.wiktionary.org/wiki/bikeshedding).
+
+> equal() is my favorite assertion. If the only available assertion in every test suite was equal(), almost every test suite in the world would be better for it.
+>
+> — Eric Elliot in [Rethinking Unit Test Assertion](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f)
+
+Personally, I tend to use only _assert_ because having only on way of doing things make things easier for my brain. And I care more about this than saving lines of code in a test file.
+
+That being said, there is a few other assertions than can be used:
+
+- _assert.any_
+- _assert.not_
+- _assert.matchesRegExp_
+
+They exists because they can be useful enough to potentially counterbalance the simplicity of using only one assertion.
 
 # How it works
 
@@ -103,30 +127,6 @@ AssertionError: unexpected properties order
 --- at ---
 value
 ```
-
-# Why opinionated?
-
-1 - _assert_ is very strict on _actual_ / _expected_ comparison
-
-It is designed like this to make test fails if something subtle changes. Any subtle change in code might break things relying on it. You need that level of precision by default.
-
-2 - We recommend to use _assert_ to test everything
-
-_assert_ can be used to test everything and ideally should be used to test everything. It mostly prevents [bikeshedding](https://en.wiktionary.org/wiki/bikeshedding).
-
-> equal() is my favorite assertion. If the only available assertion in every test suite was equal(), almost every test suite in the world would be better for it.
->
-> — Eric Elliot in [Rethinking Unit Test Assertion](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f)
-
-Personally, I tend to use only _assert_ because having only on way of doing things make things easier for my brain. And I care more about this than saving lines of code in a test file.
-
-That being said, there is a few other assertions than can be used:
-
-- _assert.any_
-- _assert.not_
-- _assert.matchesRegExp_
-
-They exists because they can be useful enough to potentially counterbalance the simplicity of using only one assertion.
 
 # Playground
 
