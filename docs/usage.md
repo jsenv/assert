@@ -1,6 +1,6 @@
 # Usage
 
-This document contains recommendation on how to use _@jsenv/assert_ in 3 parts:
+How to use _@jsenv/assert_ in 3 parts:
 
 1. Using _@jsenv/assert_ in Node.js
 2. Using _@jsenv/assert_ in a browser
@@ -67,8 +67,8 @@ npm i --save-dev @jsenv/assert
 
 ## Writing tests with _@jsenv/assert_
 
-This part contains a few recommendations on how to write tests using _@jsenv/assert_.
-These guidelines should help to write consistent tests and see how _@jsenv/assert_ is meant to be used.
+This part contain recommendations on how to write tests using _@jsenv/assert_.
+These guidelines helps to write consistent tests and illustrates how _@jsenv/assert_ is meant to be used.
 
 After an introduction on the AAA pattern, several practical examples are shown.
 
