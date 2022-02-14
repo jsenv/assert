@@ -266,7 +266,7 @@ import { assert } from "@jsenv/assert"
 import { getRandomDifferentUserName } from "./_randomize_user_name.js"
 
 const name = getRandomDifferentUserName({ name: "toto" })
-const actual = name !== "toto"
+const actual = name
 const expected = assert.not("toto")
 assert({ actual, expected })
 ```
