@@ -1,4 +1,4 @@
-# assert [![npm package](https://img.shields.io/npm/v/@jsenv/assert.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/assert) [![github main](https://github.com/jsenv/assert/workflows/main/badge.svg)](https://github.com/jsenv/assert/actions?workflow=main) [![codecov coverage](https://codecov.io/gh/jsenv/assert/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenv/assert)
+# assert [![npm package](https://img.shields.io/npm/v/@jsenv/assert.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/assert)
 
 _@jsenv/assert_ is a NPM package used to write assertion during tests. It compare two values with extreme accuracy. If values differs, an error is thrown with a readable message. It helps you to know if the _actual_ value produced in a test matches what you _expected_.
 
