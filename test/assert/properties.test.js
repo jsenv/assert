@@ -110,16 +110,16 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `2 missing properties and 2 unexpected properties
---- missing properties ---
-{
-  "b": true,
-  "c": true
-}
+    `2 unexpected properties and 2 missing properties
 --- unexpected properties ---
 {
   "d": true,
   "e": true
+}
+--- missing properties ---
+{
+  "b": true,
+  "c": true
 }
 --- at ---
 value`,
@@ -140,15 +140,15 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `1 missing property and 2 unexpected properties
---- missing property ---
-{
-  "b": true
-}
+    `2 unexpected properties and 1 missing property
 --- unexpected properties ---
 {
   "d": true,
   "e": true
+}
+--- missing property ---
+{
+  "b": true
 }
 --- at ---
 value`,
@@ -169,15 +169,15 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `2 missing properties and 1 unexpected property
+    `1 unexpected property and 2 missing properties
+--- unexpected property ---
+{
+  "d": true
+}
 --- missing properties ---
 {
   "b": true,
   "c": true
-}
---- unexpected property ---
-{
-  "d": true
 }
 --- at ---
 value`,
@@ -197,14 +197,14 @@ try {
 } catch (e) {
   ensureAssertionErrorWithMessage(
     e,
-    `1 missing property and 1 unexpected property
---- missing property ---
-{
-  "b": true
-}
+    `1 unexpected property and 1 missing property
 --- unexpected property ---
 {
   "d": true
+}
+--- missing property ---
+{
+  "b": true
 }
 --- at ---
 value`,

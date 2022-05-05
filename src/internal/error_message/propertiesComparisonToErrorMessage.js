@@ -50,21 +50,21 @@ export const propertiesComparisonToErrorMessage = (comparison) => {
   }
 
   let message = ""
-  if (missingCount === 1) {
-    message += `1 missing property`
-  } else {
-    message += `${missingCount} missing properties`
-  }
   if (extraCount === 1) {
-    message += ` and 1 unexpected property`
+    message += `1 unexpected property`
   } else {
-    message += ` and ${extraCount} unexpected properties`
+    message += `${extraCount} unexpected properties`
+  }
+  if (missingCount === 1) {
+    message += ` and 1 missing property`
+  } else {
+    message += ` and ${missingCount} missing properties`
   }
   return createDetailedMessage(message, {
-    [missingCount === 1 ? "missing property" : "missing properties"]:
-      inspect(missingProperties),
     [extraCount === 1 ? "unexpected property" : "unexpected properties"]:
       inspect(unexpectedProperties),
+    [missingCount === 1 ? "missing property" : "missing properties"]:
+      inspect(missingProperties),
     at: path,
   })
 }
