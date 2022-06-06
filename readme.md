@@ -28,7 +28,7 @@ value.foo
 
 It is designed like this to make test fails if something subtle changes. Any subtle change in code might break things relying on it. You need that level of precision by default.
 
-2 - We recommend to use _assert_ to test everything:
+2 - _assert_ is designed to become your favorite assertion:
 
 _assert_ can be the only assertion used to write tests. It mostly prevents [bikeshedding](https://en.wiktionary.org/wiki/bikeshedding).
 
