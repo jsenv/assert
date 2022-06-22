@@ -21,10 +21,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "production": "./dist/jsenv_assert.js",
-        "default": "./src/main.js"
-      }
+      "import": "./src/main.js"
     },
     "./*": "./*"
   },
