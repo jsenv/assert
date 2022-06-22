@@ -8,4 +8,7 @@ await build({
   entryPoints: {
     "./src/main.js": "jsenv_assert.js",
   },
+  baseUrl: "./",
+  minification: false,
+  versioning: false,
 })

@@ -16,45 +16,23 @@ npm i --save-dev @jsenv/assert
 import { assert } from "@jsenv/assert"
 ```
 
-It's also possible to use require
-
-```js
-const { assert } = require("@jsenv/assert")
-```
-
 ## Using _@jsenv/assert_ in a browser
 
-1 - With a module script tag and `unpkg.com`
+1 - Using a CDN
 
 ```html
 <script type="module">
-  import { assert } from "https://unpkg.com/@jsenv/assert@latest/dist/esmodule/jsenv_assert.js"
+  import { assert } from "https://unpkg.com/@jsenv/assert@latest/dist/jsenv_assert.js"
 </script>
 ```
 
-A regular script tag can also be used
-
-```html
-<script src="https://unpkg.com/@jsenv/assert@latest/dist/global/jsenv_assert.js"></script>
-<script>
-  const { assert } = window.__jsenv_assert__
-</script>
-```
-
-2 - With NPM and a module script tag
+2 - Using NPM
 
 ```console
 npm i --save-dev @jsenv/assert
 ```
 
 ```html
-<script type="importmap">
-  {
-    "imports": {
-      "@jsenv/assert": "./node_modules/@jsenv/assert/main.js"
-    }
-  }
-</script>
 <script type="module">
   import { assert } from "@jsenv/assert"
 

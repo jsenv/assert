@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04, macos-10.15, windows-2022]
-        node: [16.13.0]
+        node: [16.14.0]
     runs-on: ${{ matrix.os }}
     name: test on ${{ matrix.os }} and node ${{ matrix.node }}
     steps:
@@ -41,8 +41,6 @@ jobs:
         run: npm install
       - name: Install playwright
         run: npm run playwright-install
-      - name: Generate importmap
-        run: npm run importmap
       - name: Run ESLint
         run: npm run eslint
       - name: Run tests
@@ -67,8 +65,6 @@ jobs:
           node-version: "16.13.0"
       - name: Install node modules
         run: npm install
-      - name: Generate importmap # used by the build
-        run: npm run importmap
       - name: Publish package
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

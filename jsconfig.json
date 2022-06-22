@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@jsenv/asserrt": [
+        "./src/main.js"
+      ],
+      "@jsenv/assert/*": [
+        "./*"
+      ],
+    }
+  }
+}
