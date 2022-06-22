@@ -7,4 +7,4 @@
  * Read more at https://github.com/jsenv/jsenv-core#jsenvconfigmjs
  */
 
-export const projectDirectoryUrl = String(new URL("./", import.meta.url))
+export const rootDirectoryUrl = String(new URL("./", import.meta.url))

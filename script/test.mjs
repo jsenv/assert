@@ -1,30 +1,30 @@
 import {
   executeTestPlan,
-  chromiumTabRuntime,
-  firefoxTabRuntime,
-  webkitTabRuntime,
-  nodeRuntime,
+  chromium,
+  firefox,
+  webkit,
+  nodeProcess,
 } from "@jsenv/core"
 
-import { projectDirectoryUrl } from "../../jsenv.config.mjs"
+import { rootDirectoryUrl } from "../jsenv.config.mjs"
 
 await executeTestPlan({
-  projectDirectoryUrl,
+  rootDirectoryUrl,
   testPlan: {
     "test/**/*.test.mjs": {
       node: {
-        runtime: nodeRuntime,
+        runtime: nodeProcess,
       },
     },
     "test/**/*.test.html": {
       chromium: {
-        runtime: chromiumTabRuntime,
+        runtime: chromium,
       },
       firefox: {
-        runtime: firefoxTabRuntime,
+        runtime: firefox,
       },
       webkit: {
-        runtime: webkitTabRuntime,
+        runtime: webkit,
       },
     },
   },

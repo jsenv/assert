@@ -5,5 +5,5 @@
  *   discover codebase progressively
  */
 
-export { assert } from "./src/assert.js"
-export { isAssertionError, createAssertionError } from "./src/assertionError.js"
+export { assert } from "./assert.js"
+export { isAssertionError, createAssertionError } from "./assertionError.js"

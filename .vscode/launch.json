@@ -5,12 +5,12 @@
       "name": "node",
       "type": "node",
       "request": "launch",
-      "protocol": "inspector",
       "program": "${file}",
       "runtimeArgs": [
         "--unhandled-rejections=strict",
         "--experimental-json-modules",
-        "--experimental-top-level-await"
+        "--experimental-top-level-await",
+        "--conditions=development"
       ],
       "console": "integratedTerminal",
       "autoAttachChildProcesses": true,
