@@ -1,5 +1,4 @@
-import { createDetailedMessage } from "@jsenv/logger"
-
+import { createDetailedMessage } from "../detailed_message.js"
 import { comparisonToPath } from "../comparisonToPath.js"
 import { valueToString } from "../valueToString.js"
 import { isError, isRegExp } from "../object-subtype.js"

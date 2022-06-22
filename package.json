@@ -22,8 +22,8 @@
   "exports": {
     ".": {
       "import": {
-        "development": "./src/main.js",
-        "default": "./dist/jsenv_assert.js"
+        "production": "./dist/jsenv_assert.js",
+        "default": "./src/main.js"
       }
     },
     "./*": "./*"
@@ -35,8 +35,8 @@
   ],
   "scripts": {
     "eslint": "npx eslint . --ext=.js,.mjs,.cjs,.html",
-    "dev": "node --conditions=development ./script/dev.mjs",
-    "test": "node --conditions=development ./script/test.mjs",
+    "dev": "node ./script/dev.mjs",
+    "test": "node ./script/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
     "dist": "node ./script/build.mjs",
     "prettier": "prettier --write .",
@@ -44,7 +44,6 @@
     "prepublishOnly": "npm run dist"
   },
   "dependencies": {
-    "@jsenv/log": "2.0.1",
     "@jsenv/inspect": "1.7.1"
   },
   "devDependencies": {

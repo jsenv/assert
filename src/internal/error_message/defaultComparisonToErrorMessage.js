@@ -1,5 +1,4 @@
-import { createDetailedMessage } from "@jsenv/log"
-
+import { createDetailedMessage } from "../detailed_message.js"
 import { comparisonToPath } from "../comparisonToPath.js"
 import { valueToString } from "../valueToString.js"
 
