@@ -43,10 +43,9 @@
     "playwright-install": "npx playwright install-deps && npx playwright install",
     "prepublishOnly": "npm run dist"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@jsenv/core": "27.0.0-alpha.89",
+    "@jsenv/core": "27.0.0-alpha.90",
     "@jsenv/eslint-import-resolver": "0.3.0",
     "@jsenv/log": "2.0.1",
     "@jsenv/eslint-config": "16.0.9",
