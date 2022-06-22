@@ -1,5 +1,6 @@
 import { inspect } from "@jsenv/inspect"
-import { createDetailedMessage } from "@jsenv/logger"
+import { createDetailedMessage } from "@jsenv/log"
+
 import { comparisonToPath } from "../comparisonToPath.js"
 
 export const propertiesComparisonToErrorMessage = (comparison) => {
