@@ -1,14 +1,12 @@
 import { startDevServer } from "@jsenv/core"
 
-import { rootDirectoryUrl } from "../jsenv.config.mjs"
-
 await startDevServer({
-  rootDirectoryUrl,
+  rootDirectoryUrl: new URL("../", import.meta.url),
   port: 3457,
   // protocol: "https",
   explorerGroups: {
     test: {
-      "test/**/*.html": true,
+      "tests/**/*.html": true,
     },
   },
 })

@@ -1,10 +1,8 @@
 import { build } from "@jsenv/core"
 
-import { rootDirectoryUrl } from "../jsenv.config.mjs"
-
 await build({
-  rootDirectoryUrl,
-  buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
+  rootDirectoryUrl: new URL("../", import.meta.url),
+  buildDirectoryUrl: new URL("../dist/", import.meta.url),
   entryPoints: {
     "./src/main.js": "jsenv_assert.js",
   },

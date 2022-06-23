@@ -44,11 +44,11 @@
     "@jsenv/inspect": "1.7.1"
   },
   "devDependencies": {
-    "@jsenv/core": "27.0.0-alpha.91",
+    "@jsenv/core": "27.0.0-alpha.92",
     "@jsenv/eslint-import-resolver": "0.3.0",
     "@jsenv/eslint-config": "16.0.9",
-    "@jsenv/github-release-package": "1.4.0",
-    "@jsenv/package-publish": "1.7.5",
+    "@jsenv/github-release-package": "1.5.0",
+    "@jsenv/package-publish": "1.8.0",
     "eslint": "8.18.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.26.0",

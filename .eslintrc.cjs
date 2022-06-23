@@ -123,7 +123,7 @@ const eslintConfig = composeEslintConfig(
   {
     overrides: [
       {
-        files: ["test/**/*.js"],
+        files: ["tests/**/*.js"],
         env: {
           "shared-node-browser": false,
           "browser": true,

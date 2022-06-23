@@ -6,17 +6,15 @@ import {
   nodeProcess,
 } from "@jsenv/core"
 
-import { rootDirectoryUrl } from "../jsenv.config.mjs"
-
 await executeTestPlan({
-  rootDirectoryUrl,
+  rootDirectoryUrl: new URL("../", import.meta.url),
   testPlan: {
-    "test/**/*.test.mjs": {
+    "tests/**/*.test.mjs": {
       node: {
         runtime: nodeProcess,
       },
     },
-    "test/**/*.test.html": {
+    "tests/**/*.test.html": {
       chromium: {
         runtime: chromium,
       },
