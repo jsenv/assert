@@ -43,14 +43,14 @@ npm i --save-dev @jsenv/assert
 </script>
 ```
 
-## Writing tests with _@jsenv/assert_
+# Writing tests with _@jsenv/assert_
 
 This part contain recommendations on how to write tests using _@jsenv/assert_.
 These guidelines helps to write consistent tests and illustrates how _@jsenv/assert_ is meant to be used.
 
 After an introduction on the AAA pattern, several practical examples are shown.
 
-### The AAA pattern
+## The AAA pattern
 
 It is recommended to use the AAA pattern in your test files. "AAA" stands for Arrange, Act, Assert.
 You are certainly already using AAA without noticing but it's still good to be aware of the concept.
