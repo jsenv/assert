@@ -67,7 +67,9 @@ You can also check the following medium article for an other point of view.
 >
 > — Paulo Gomes in [Unit Testing and the Arrange, Act and Assert (AAA) Pattern](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
 
-## Assert a function throws
+## Practical examples
+
+### Assert a function throws
 
 _circle.js_
 
@@ -98,7 +100,7 @@ try {
 }
 ```
 
-## Assert an async function throws
+### Assert an async function throws
 
 If _getCircleArea_ from previous example was async, add _await_ in front of it.
 
@@ -110,7 +112,7 @@ try {
 } catch(e) {
 ```
 
-## Assert a callback is called
+### Assert a callback is called
 
 _abort_signal.js_
 
@@ -152,7 +154,7 @@ assert({ actual, expected })
 
 > Code above is a great example of [the AAA pattern](#The-AAA-pattern).
 
-## Assert callback will be called
+### Assert callback will be called
 
 _call_me_maybe.js_
 
@@ -181,7 +183,7 @@ const expected = true
 assert({ actual, expected })
 ```
 
-## Assert any value of a given type
+### Assert any value of a given type
 
 _user.js_
 
@@ -209,7 +211,7 @@ const expected = {
 assert({ actual, expected })
 ```
 
-## Assert an other value
+### Assert an other value
 
 _randomize_user_name.js_
 
@@ -249,7 +251,7 @@ const expected = assert.not("toto")
 assert({ actual, expected })
 ```
 
-## Assert subset of properties
+### Assert subset of properties
 
 _user.js_
 
@@ -277,7 +279,7 @@ const expected = { name: "sam", age: 32 }
 assert({ actual, expected })
 ```
 
-## Assert without property order constraint
+### Assert without property order constraint
 
 _user.js_
 
