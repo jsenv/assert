@@ -34,25 +34,25 @@
     "eslint": "npx eslint . --ext=.js,.mjs,.cjs,.html",
     "dev": "node ./scripts/dev.mjs",
     "test": "node ./scripts/test.mjs",
-    "test-with-coverage": "npm run test -- --coverage",
-    "dist": "node ./scripts/build.mjs",
+    "test:coverage": "npm run test -- --coverage",
+    "build": "node ./scripts/build.mjs",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "prepublishOnly": "npm run dist"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@jsenv/inspect": "1.7.1"
   },
   "devDependencies": {
-    "@jsenv/core": "27.0.0-alpha.92",
+    "@jsenv/core": "27.3.2",
     "@jsenv/eslint-import-resolver": "0.3.0",
-    "@jsenv/eslint-config": "16.0.9",
+    "@jsenv/eslint-config": "16.1.0",
     "@jsenv/github-release-package": "1.5.0",
-    "@jsenv/package-publish": "1.8.0",
-    "eslint": "8.18.0",
+    "@jsenv/package-publish": "1.10.0",
+    "eslint": "8.19.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.26.0",
-    "playwright": "1.22.2",
+    "playwright": "1.23.2",
     "prettier": "2.7.1"
   }
 }

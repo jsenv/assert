@@ -3,7 +3,7 @@ import {
   chromium,
   firefox,
   webkit,
-  nodeProcess,
+  nodeWorkerThread,
 } from "@jsenv/core"
 
 await executeTestPlan({
@@ -11,7 +11,7 @@ await executeTestPlan({
   testPlan: {
     "tests/**/*.test.mjs": {
       node: {
-        runtime: nodeProcess,
+        runtime: nodeWorkerThread,
       },
     },
     "tests/**/*.test.html": {
